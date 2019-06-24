@@ -1,0 +1,75 @@
+<ng-container>
+  <div class="row" *ngIf="poData"> 
+    <div class="col-xl-12 filter-bar custom-bar">
+        <section class="cart-back-nav" style="width:220px;">
+            <button type="button" (click)="back()" class="btn pull-right btn-primary btn-sm ripple light">Back</button>
+            <div class="col-md-8" *ngIf="poData.order_status !='APPROVED'">
+              <select [(ngModel)]="action" class="form-control">
+                  <option value="">--Select--</option>
+                <option value="APPROVED">APPROVED</option>
+                <option value="CANCELLED">CANCELLED</option>
+              </select>
+            </div>
+            
+            <!-- <button type="button" (click)="updatePO()" [disabled]="buttonObj.disabled" [ngClass]="{'btn-primary':!buttonObj.disabled}" class="btn btn-sm ripple light">{{buttonObj.text}}</button> -->
+        </section>
+      <nav class="navbar navbar-light bg-faded m-b-30 p-10 order-info">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <b style="color:#448aff">PO ID
+              <br/><span style="color:#e91313;">#{{poData.id}}</span>
+            </b>
+          </li>
+          <li class="nav-item active">
+            <b style="color:#448aff">Order Status 
+              <br/><span style="color:#e91313;">{{poData.order_status}}</span>
+            </b>
+          </li>
+          <li class="nav-item active" *ngIf="userRole=='A'">
+              <b style="color:#448aff">Vendor 
+                <br/><span style="color:#e91313;">{{poData.name}}</span>
+              </b>
+            </li>
+          <li class="nav-item active">
+            <b style="color:#448aff">Order Items 
+              <br/><span style="color:#e91313;">{{cartData.totalItems}}</span>
+            </b>
+          </li>
+          <li class="nav-item active">
+            <b style="color:#448aff">Order Total 
+              <br/><span style="color:#e91313;">{{cartData.cartTotal | currency}}</span>
+            </b>
+          </li>          
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row simple-cards users-card">
+    <div class="col-md-4 col-xl-4" *ngFor="let productId of mappedProductIds">
+      <!-- {{mappedProductsById[productId].sku}} -->
+      <app-product-view [product]="mappedProductsById[productId]" [poItems]="mappedPoItems" [onloadCartUpdate]="'true'"></app-product-view>
+    </div>
+  </div>
+
+  <div class="row simple-cards users-card" *ngIf="!mappedPoItems">
+    <div class="cell preloader5 loader-block">
+      <div class="circle-5 l"></div>
+      <div class="circle-5 m"></div>
+      <div class="circle-5 r"></div>
+    </div>
+  </div>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-2">
+      <button type="button" (click)="updatePO()" [disabled]="buttonObj.disabled" class="btn btn-primary btn-sm ripple light">{{buttonObj.text}}</button>
+    </div>
+  </div>
+<hr>
+<app-notes *ngIf="poData" [id]="poData.id" type='Purchase'></app-notes>    
+<br><br>
+<app-logs *ngIf="poData" [id]="poData.id" type='PO'></app-logs>
+
+<br><br>
+
+</ng-container>

@@ -1,0 +1,11 @@
+<!-- <p>
+  variants-value-list works!
+</p> -->
+<app-card [title]="" class="card-bg">    
+  <app-iz-table [izTableData]="izTable" [columns]="columns" [rows]="rows" (listChange)="loadPage()" (doBulkAction)="doBulkAction()"></app-iz-table> 
+</app-card>
+
+
+<ng-template #roleTemplate let-value="value" ngx-datatable-cell-template>
+  <strong>{{value}}</strong>
+</ng-template>

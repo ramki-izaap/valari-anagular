@@ -1,0 +1,27 @@
+<div class="row m-b-20">
+  <div class="col-sm-12">
+    <div  class="f-right">
+      <button class="btn btn-primary btn-sm ripple light" type="button" (click)="pushToCreatePO()">Create New PO</button>               
+    </div>
+  </div>
+</div>
+<app-card [title]="" class="card-bg">    
+  <app-iz-table [izTableData]="izTable" [columns]="columns" [rows]="rows" (listChange)="loadPage()" (doBulkAction)="doBulkAction()"></app-iz-table> 
+</app-card>
+
+
+<ng-template #roleTemplate let-value="value" ngx-datatable-cell-template>
+  <strong>{{value}}</strong>
+</ng-template>
+
+<ng-template #priceTemplate let-value="value" ngx-datatable-cell-template>
+    <strong>{{value|currency}}</strong>
+  </ng-template>
+
+  <ng-template #dateTemplate let-value="value" ngx-datatable-cell-template>
+    <strong>{{value| date: 'MM/dd/yyyy, h:mm a'}}</strong>
+  </ng-template>
+
+<ng-template #actionTemplate let-value="value" ngx-datatable-cell-template>
+  <button type="button" class="btn btn-primary btn-mini b-none ripple light" (click)="view(value)"><i class="icofont icofont-eye-alt m-0"></i></button>
+</ng-template>

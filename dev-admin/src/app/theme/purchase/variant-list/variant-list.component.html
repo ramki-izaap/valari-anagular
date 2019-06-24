@@ -1,0 +1,7 @@
+	<ng-container *ngIf="variantdata !=''" class="col-sm-2" >
+        <input type="text"  class="form-control" [(ngModel)]="cartData.products[product].variants[variantdata].qty" (keyup)="addtoCart.emit($event)">
+    </ng-container>
+
+    <ng-container *ngIf="variantdata == ''" class="col-sm-2" >
+        <input type="text" class="form-control" disabled>
+    </ng-container>	

@@ -1,0 +1,485 @@
+
+<div class="page-body" *ngIf="salesOrder">
+  <div class="row">
+   
+    <!-- Left column start -->
+    <div class="col-xl-12 filter-bar">
+      <nav class="navbar navbar-light bg-faded m-b-30 p-10">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+           
+				<b style="font-size:18px; color:#448aff">Sales Order 
+					<span style="color:#333;">#{{salesOrder.id}}</span>
+				</b>
+			
+          </li>
+          
+        </ul>
+        <div class="nav-item nav-grid">
+          <button type="button" (click)="sentOrderEmail(salesOrder.id)" class="btn btn-sm btn-primary waves-light m-r-10 ripple" data-toggle="tooltip" data-placement="top" title="list view">
+            Resend Order Email
+          </button>
+
+          <button type="button" (click)="getInvoice()" class="btn btn-sm btn-primary waves-light m-r-10 ripple" data-toggle="tooltip" data-placement="top" title="list view">
+           Get Invoice
+          </button>
+         
+        </div>
+        
+      </nav>
+      <nav class="navbar navbar-light bg-faded m-b-30 p-10 order-info">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <b style="color:#448aff">Sales Order 
+          <br/><span style="color:#e91313;">#{{salesOrder.id}}</span>
+        </b>
+          </li>
+          <li ngbDropdown="" class="nav-item dropdown">
+           <b style="color:#448aff">Order Total 
+          <br/><span style="color:#e91313;">{{salesOrder.orderAmount | currency}}</span>
+        </b>
+          </li>
+
+          <li ngbDropdown="" class="nav-item dropdown" *ngIf="salesOrder.refundAmount">
+            <b style="color:#448aff">Refund Amount
+           <br/><span style="color:#e91313;">{{salesOrder.refundAmount | currency}}</span>
+         </b>
+           </li>
+        
+          <li ngbDropdown class="nav-item dropdown">
+           <b style="color:#448aff">Order Status 
+          <br/><span style="color:#e91313;">{{salesOrder.orderStatus}}</span>
+        </b>
+          </li>
+         
+          <!-- <li ngbDropdown class="nav-item dropdown">
+            <b style="color:#448aff">Paid Status 
+          <br/><span style="color:#e91313;">-</span>
+        </b>
+          </li> -->
+          <li ngbDropdown class="nav-item dropdown">
+            <b style="color:#448aff">Order Date 
+          <br/><span style="color:#e91313;">{{salesOrder.orderDate | date: 'MM/dd/yyyy'}}</span>
+        </b>
+          </li>
+          <li ngbDropdown class="nav-item dropdown">
+            <b style="color:#448aff">Email ID 
+          <br/><span style="color:#e91313;">{{salesOrder.userInfo.email}}</span>
+        </b>
+          </li>
+        </ul>
+      </nav>
+     
+      
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card card-border-primary">
+            <div class="card-header">
+              <h5>Billing Information</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <app-address [address]="VarBillingAddress"></app-address>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="card card-border-primary">
+            <div class="card-header">
+              <h5>Shipping Information </h5>
+              <button type="button" class="btn btn-mini btn-primary pull-right" (click)="addressUpdateModal('shipping')">Edit</button>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <app-address [address]="VarShippingAddress"></app-address>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <nav *ngIf="salesOrder.orderStatus=='ACCEPTED' || 
+              salesOrder.orderStatus=='PROCESSING' || 
+              salesOrder.orderStatus=='PENDING' || 
+              salesOrder.orderStatus=='SHIPPED' || 
+              salesOrder.orderStatus=='COMPLETE' || 
+              salesOrder.orderStatus=='HOLD'" class="navbar navbar-light bg-faded m-b-30 p-10 refund-nav">
+        <div class="nav-item nav-grid col-12 text-right">
+
+          <button (click)="refundOrder('partial')" type="button" class="btn btn-sm btn-primary ripple light"  data-toggle="tooltip" data-placement="top" title="grid view">
+           Issue Parital Refund
+          </button>
+          <button  (click)="refundOrder()" type="button" class="btn btn-sm btn-primary ripple light" data-toggle="tooltip" data-placement="top" title="grid view">
+            Issue Full Refund
+          </button>
+        </div>
+      </nav>
+    </div>
+    
+  
+    <div class="col-md-12">
+      <app-card [cardOptionBlock]="true" [title]="'Order Details'">
+        <div class="table-responsive">
+          <table class="table table-hover table-borderless">
+            <thead>
+            <tr>
+              <th>Product</th>
+              <th>SKU</th>
+              <th>QTY</th>
+              <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let products of salesOrder.items">
+                <td>{{products.name}}</td>
+                <td>{{products.sku}}</td>
+                <td>{{products.quantity}}</td>
+                <td>{{products.price}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-card>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card card-border-primary">
+          <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                  <div class="m-t-10">Order Status</div>
+                </div>
+                <div class="col-sm-6">
+                    <select name="singleSelect" [(ngModel)]="orderStatus" class="form-control">
+                        <option value="PENDING">PENDING</option>
+                        <option value="ACCEPTED">ACCEPTED</option>
+                        <option value="COMPLETE">COMPLETE</option>
+                        <option value="HOLD">HOLD</option>
+                      </select>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="push-sm-4 col-sm-4">
+                  <button type="button" class="btn btn-sm btn-primary ripple light m-t-30" (click)="updateOrderStatus()">submit</button>
+                </div>
+            </div>
+          </div>           
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card card-border-primary">
+          <div class="card-body">
+            <table class="price_box pull-right  ash_gradiant_bg" width="100%">
+              <tbody>
+                <tr>
+                  <td class="text-right" width="50%">Purchases:</td>
+                  <td width="1%">&nbsp;</td>
+                  <td class="green" width="49%">{{salesOrder.subTotal | currency}}</td>
+                </tr>
+                <tr>
+                  <td class="text-right">Shipping:</td>
+                  <td>&nbsp;</td>
+                  <td class="green">{{salesOrder.shippingCost | currency}}         </td>
+                </tr>
+          
+                <tr>
+                  <td class="text-right">Discount:</td>
+                  <td>&nbsp;</td>
+                  <td class="green">{{salesOrder.orderDiscount | currency}} </td>
+                </tr>
+
+                <tr>
+                    <td class="text-right">Tax:</td>
+                    <td>&nbsp;</td>
+                    <td class="green">{{salesOrder.tax | currency}} </td>
+                  </tr>
+                
+                <tr class="green_solid_bg">
+                  <td class="text-right"><b>Total:</b>
+                  </td>
+                  <td>&nbsp;</td>
+                  <td><b>{{totalAmount | currency}}</b>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>           
+        </div>
+    </div>
+  </div>
+  
+  <app-notes [id]="salesOrder.id" type='Sales'></app-notes>    
+  <br><br>
+  <app-logs [id]="salesOrder.id" type='SO'></app-logs>
+      
+  <br><br>
+
+</div>
+
+<div class="page-body" *ngIf="!salesOrder">
+  <div class="cell preloader5 loader-block">
+    <div class="circle-5 l"></div>
+    <div class="circle-5 m"></div>
+    <div class="circle-5 r"></div>
+  </div>
+</div>
+
+
+
+<app-modal-animation [modalID]="'refund-modal'" [modalClass]="'md-effect-1'">
+  <h3>{{modalTitle}}</h3>
+  <div *ngIf="div1">
+    <div class="row">
+      <div class="col-md-12">
+        <label class="control-label col-md-6">Enter Partial Amount to Refund:</label>
+        <div class="col-md-6">
+          <input type="text" class="form-control" [(ngModel)]="refundAmount">
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-md-5 pull-right">
+        <button (click)="closerefundModal()" class="btn pull-left btn-danger">Close</button>
+        <button class="btn btn-primary pull-right" (click)="confirmRefund('partial')">Confirm</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="div2" style="text-align: center;">
+    <p>Please Wait</p>
+	  	<p>Amount refund process is initiated and progressing.</p>
+	    <img src="./assets/images/loading-csv.gif" style="height: 160px;width: 200px;">
+  </div>
+  <div *ngIf="div3" style="text-align: center;">
+    <img src="./assets/images/success.gif" style="height: 200px;width: 270px;">
+      <h4>Success!</h4>
+      <p>Amount refunded successfully.</p>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-md-12 pull-right">
+        <button (click)="closerefundModal()" class="btn pull-right btn-danger">Close</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="div4" style="text-align: center;">
+    <img src="./assets/images/fail.png">
+      <h4>Failed!</h4>
+      <p>{{refMsg}}</p>
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-md-12 pull-right">
+        <button (click)="closerefundModal()" class="btn pull-right btn-danger">Close</button>
+      </div>
+    </div>
+  </div>
+</app-modal-animation>
+<!-- <app-notification [notify_options]="notify_options"></app-notification> -->
+
+<app-modal-animation [modalID]="'shipping'" [modalClass]="'md-shipping'">
+  <h3>Change Shipping Address</h3>
+  <div>
+    <ul>
+      <form [formGroup]="addressForm">
+          <div class="form-group row">
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  formControlName="first_name" placeholder="First Name">
+              <div class="messages text-danger" *ngIf="addressForm.controls.first_name.errors && (addressForm.controls.first_name.dirty || addressForm.controls.first_name.touched )">First Name can't be blank</div>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  formControlName="last_name" placeholder="Last Name">
+                <div class="messages text-danger" *ngIf="addressForm.controls.last_name.errors && (addressForm.controls.last_name.dirty || addressForm.controls.last_name.touched )">Last Name can't be blank</div>
+              </div>
+          </div>
+        
+           <div class="form-group row">
+            
+            <div class="col-sm-6">
+              <input type="text" class="form-control"  formControlName="address1" placeholder="Address1">
+              <div class="messages text-danger" *ngIf="addressForm.controls.address1.errors && (addressForm.controls.address1.dirty || addressForm.controls.address1.touched )">Address1 can't be blank</div>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  formControlName="address2" placeholder="Address2">
+              
+              </div>
+          </div>
+         
+           <div class="form-group row">
+            
+            <div class="col-sm-6">
+              <input type="text" class="form-control"  formControlName="city" placeholder="City">
+              <div class="messages text-danger" *ngIf="addressForm.controls.city.errors && (addressForm.controls.city.dirty || addressForm.controls.city.touched )">City can't be blank</div>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  formControlName="country" placeholder="Country">
+                <div class="messages text-danger" *ngIf="addressForm.controls.country.errors && (addressForm.controls.country.dirty || addressForm.controls.country.touched )">Country can't be blank</div>
+              </div>
+          </div>
+          
+           <div class="form-group row">
+           
+            <div class="col-sm-6">
+              <input type="text" class="form-control"  formControlName="state" placeholder="State">
+              <div class="messages text-danger" *ngIf="addressForm.controls.state.errors && (addressForm.controls.state.dirty || addressForm.controls.state.touched )">State can't be blank</div>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  formControlName="zip" placeholder="Zipcode">
+                <div class="messages text-danger" *ngIf="addressForm.controls.zip.errors && (addressForm.controls.zip.dirty || addressForm.controls.zip.touched )">Zipcode can't be blank</div>
+              </div>
+          </div>
+         
+          <div class="form-group row">
+            
+            <div class="col-sm-6">
+              <input type="text" class="form-control" formControlName="phone_number"  placeholder="Phone">
+              <div class="messages text-danger" *ngIf="addressForm.controls.phone_number.errors && (addressForm.controls.phone_number.dirty || addressForm.controls.phone_number.touched )">Phone can't be blank</div>
+            </div>
+          </div>
+        </form>
+    </ul>
+  <button (click)="closeMyModal($event)" class="btn btn-primary md-close">Close</button>
+  <button  type="submit" (click)="updateAddress($event)" class="btn btn-primary mobtn ripple light save-change" [disabled]="!addressForm.valid">Save changes</button>
+</div>
+</app-modal-animation>
+
+<div style="display:none;" id="print-section" *ngIf="salesOrder">
+  
+	<div class="container">
+      
+      <div>
+        <!-- Invoice card start -->
+        <div class="card">
+          <div class="row invoice-contact">
+            <div class="col-md-8">
+              <div class="invoice-box row">
+                <div class="col-sm-12">
+                  <table class="table table-responsive invoice-table table-borderless">
+                    <tbody>
+                    <tr>
+                      <td><img src="assets/images/logo-blue.png" class="m-b-10" alt=""></td>
+                    </tr>
+                    <tr>
+                      <td>{{billingAddress.first_name}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{billingAddress.address1}}, {{billingAddress.city}},{{billingAddress.state}},{{billingAddress.country}}. -{{billingAddress.zip}}</td>
+                    </tr>
+                    <tr>
+                      <td><a href="" target="_top">{{salesOrder.userInfo.email}}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{billingAddress.phone_number}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row invoive-info">
+              <div class="col-md-4 col-xs-12 invoice-client-info">
+                <h6>Client Information :</h6>
+                <h6 class="m-0">{{shippingAddress.first_name}}</h6>
+                <p class="m-0 m-t-10">{{shippingAddress.address1}}, {{shippingAddress.city}},{{shippingAddress.state}},{{shippingAddress.country}}.</p>
+                <p class="m-0">{{shippingAddress.zip}}</p>
+                <p>{{salesOrder.userInfo.email}}</p>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <h6>Order Information :</h6>
+                <table class="table table-responsive invoice-table invoice-order table-borderless">
+                  <tbody>
+                  <tr>
+                    <th>Date :</th>
+                    <td>{{salesOrder.orderDate | date : 'yyyy-MM-dd'}}</td>
+                  </tr>
+                  <!-- <tr>
+                    <th>Status :</th>
+                    <td>
+                      <span class="label">{{salesOrder.order_status}}</span>
+                    </td>
+                  </tr> -->
+                  <tr>
+                    <th>Id :</th>
+                    <td>
+                      #{{salesOrder.id}}
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <h6 class="text-uppercase text-primary">Total Due :
+                  <span>{{salesOrder.orderAmount | currency}}</span>
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <table class="table  invoice-detail-table">
+                    <thead>
+                    <tr class="thead-default">
+                      <th>Product</th>
+                      <th>SKU</th>
+                      <th>QTY</th>
+                      <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let products of salesOrder.items">
+                      <td>{{products.name}}</td>
+                      <td>{{products.sku}}</td>
+                      <td>{{products.quantity}}</td>
+                      <td>{{products.price}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-responsive invoice-table invoice-total">
+                  <tbody>
+                  <tr>
+                    <th>Sub Total :</th>
+                    <td>{{salesOrder.subTotal | currency}}</td>
+                  </tr>
+                
+                  <tr>
+                    <th>Discount:</th>
+                    <td>{{salesOrder.orderDiscount | currency}}</td>
+                  </tr>
+                  <tr class="text-info">
+                    <td>
+                      <hr/>
+                      <h5 class="text-primary">Total  :</h5>
+                    </td>
+                    <td>
+                      <hr/>
+                      <h5 class="text-primary">{{salesOrder.orderAmount | currency}}</h5>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+

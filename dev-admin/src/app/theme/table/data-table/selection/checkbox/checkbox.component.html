@@ -1,0 +1,113 @@
+<app-card [title]="'Ng-X Checkbox Selection'">
+  <!-- <span class="m-b-20">use class <code>dt-chk</code> with ngx-datatable element</span><br><br> -->
+
+  <div class="row">
+    <div class='col-sm-3'>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                  <input type="checkbox" aria-label="Checkbox for following text input">
+              </span>
+            </div>
+            <select class="form-control" id="exampleFormControlSelect1">
+                <option>select</option>
+                <option>print</option>
+                <option>edit</option>
+            </select>
+            <div class="input-group-append">
+              <span class="input-group-text">GO</span>
+            </div>
+          </div>
+    </div>
+    <div class='col-sm-4'>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              
+                  <select class="form-control">
+                      <option>Order ID</option>
+                      <option>Name</option>
+                      <option>Status</option>
+                  </select>
+              
+            </div>
+            <input type="text" class="form-control">                  
+            <div class="input-group-append">
+              <span class="input-group-text">GO</span>
+            </div>
+            <div class="input-group-append">
+                <small class="m-t-20 m-l-5">Clear Filter</small>
+              </div>
+          </div>
+    </div>
+    <div class='col-sm-3'>
+      <div class="input-group mb-3">
+        <button class="btn btn-primary btn-round ripple light">Advanced Search</button>
+        <div class="input-group-append">
+          <small class="m-t-20 m-l-5">Clear Filter</small>
+        </div>
+      </div>
+    </div>
+    <div class='col-sm-2'>
+      <div class="input-group mb-3">
+        
+        <span class="input-group-text" >per page</span>
+        
+        <select class="form-control">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+        </select>
+        
+      </div>
+    </div>
+  </div>
+  
+  <ngx-datatable
+    class="data-table dt-chk"
+    [rows]="rows"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [externalPaging]="true"
+    [count]="page.totalElements"
+    [offset]="page.pageNumber"
+    [limit]="page.size"
+    [selected]="selected"
+    [selectionType]="'checkbox'"
+    (activate)="onActivate($event)"
+    (select)='onSelect($event)'
+    (page)='setPage($event)'>
+    <ngx-datatable-column [width]="50" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false">
+      <ng-template class="datatable-checkbox" ngx-datatable-header-template let-value="value" let-allRowsSelected="allRowsSelected" let-selectFn="selectFn">
+        <div class="checkbox-fade fade-in-default datatable-header-cell-label">
+          <label>
+            <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)"/>
+            <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+          </label>
+        </div>
+
+      </ng-template>
+      <ng-template class="datatable-checkbox" ngx-datatable-cell-template let-value="value" let-isSelected="isSelected" let-onCheckboxChangeFn="onCheckboxChangeFn">
+        <div class="checkbox-fade fade-in-default datatable-header-cell-label">
+          <label>
+            <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)"/>
+            <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+          </label>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Name"></ngx-datatable-column>
+    <ngx-datatable-column name="Gender"></ngx-datatable-column>
+    <ngx-datatable-column name="Company"></ngx-datatable-column>
+  </ngx-datatable>
+  <div class="row">
+    <div class='col-sm-12 selected-column'>
+      <h4 class="sub-title p-t-15">Selected Row</h4>
+      <span *ngFor='let sel of selected'>
+          <label class="label label-primary">{{sel.name}}</label>
+        </span>
+      <span *ngIf="!selected.length">No Selections</span>
+    </div>
+  </div>
+</app-card>

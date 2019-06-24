@@ -1,0 +1,118 @@
+<div class="page-body" *ngIf="paypalForm">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="md-tabs md-card-tabs">
+        <ngb-tabset *ngIf="isdatavailable">
+          <ngb-tab title="Paypal Info" *ngIf="paypalInfo">
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="m-t-15">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <form [formGroup]="paypalForm" class="form-material" action="javascript:">
+                            <div class="auth-box card">
+                              <div class="card-block">                     
+                                <div class="form-group form-primary">
+                                  <input type="text" formControlName="email" class="form-control">
+                                  <span class="form-bar"></span>
+                                    <label class="float-label">Paypal Email-ID</label>
+                                    <div class="messages text-danger" *ngIf="paypalForm.controls.email.errors && (paypalForm.controls.email.dirty || paypalFormSubmitted || paypalForm.controls.email.touched )">Email can't be blank</div>
+                                </div>
+                                <div class="form-group form-primary">
+                                  <input type="text" formControlName="clientid" class="form-control">
+                                  <span class="form-bar"></span>
+                                    <label class="float-label">Client ID</label>
+                                    <div class="messages text-danger" *ngIf="paypalForm.controls.clientid.errors && (paypalForm.controls.clientid.dirty || paypalFormSubmitted || paypalForm.controls.clientid.touched )">Client ID can't be blank</div>
+                                </div>
+                                <div class="form-group form-primary">
+                                  <input type="text" formControlName="username" class="form-control">
+                                  <span class="form-bar"></span>
+                                    <label class="float-label">API Username</label>
+                                    <div class="messages text-danger" *ngIf="paypalForm.controls.username.errors && (paypalForm.controls.username.dirty || paypalFormSubmitted || paypalForm.controls.username.touched )">Username can't be blank</div>
+                                </div>
+                                <div class="form-group form-primary">
+                                    <input type="password" formControlName="password" class="form-control">
+                                  <span class="form-bar"></span>
+                                    <label class="float-label">API Password</label>
+                                    <div class="messages text-danger" *ngIf="paypalForm.controls.password.errors && (paypalForm.controls.password.dirty || paypalFormSubmitted || paypalForm.controls.password.touched )">Password can't be blank</div>
+                                </div>
+                                <div class="form-group form-primary">
+                                  <input type="text" formControlName="signature" class="form-control">
+                                  <span class="form-bar"></span>
+                                    <label class="float-label">API Signature</label>
+                                    <div class="messages text-danger" *ngIf="paypalForm.controls.signature.errors && (paypalForm.controls.signature.dirty || paypalFormSubmitted || paypalForm.controls.signature.touched )">Signature can't be blank</div>
+                                </div>
+                                <!-- <div class="form-group form-primary">
+                                  <select formControlName="mode" class="form-control">
+                                    <option value="">--Select Mode--</option>
+                                    <option value="sandbox">Sandbox</option>
+                                    <option value="production">Production</option>
+                                  </select>
+                                  <span class="form-bar"></span>
+                                  <label class="float-label">Payment Mode</label>
+                                  <div class="messages text-danger" *ngIf="paypalForm.controls.mode.errors && (paypalForm.controls.mode.dirty || paypalFormSubmitted || paypalForm.controls.mode.touched )">Payment mode can't be blank</div>
+                                </div> -->
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <button type="submit" (click)="savePaypal()" class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple">Submit</button>
+                                  </div>
+                                </div>                
+                              </div>
+                            </div>
+                          </form>                                    
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Authorize Info" *ngIf="authorizeForm">
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="m-t-15">
+                <!-- <div class="card">
+                  <div class="card-body">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-12" *ngIf="authorizeForm">                          
+                          <form [formGroup]="authorizeForm" class="form-material" action="javascript:">
+                            <div class="auth-box card">
+                              <div class="card-block">                                                
+                                <div class="form-group form-primary">
+                                  <input type="text" formControlName="api_login_id" class="form-control" required="">
+                                  <span class="form-bar"></span>
+                                    <label class="float-label">API Login-ID</label>
+                                    <div class="messages text-danger" *ngIf="authorizeForm.controls.api_login_id.errors && (authorizeForm.controls.api_login_id.dirty || authorizeFormSubmitted || authorizeForm.controls.api_login_id.touched )">API Login-ID can't be blank</div>
+                                </div>   
+                                <div class="form-group form-primary">
+                                  <input type="text" formControlName="api_transaction_key" class="form-control">
+                                  <span class="form-bar"></span>
+                                    <label class="float-label">API Transaction Key</label>
+                                    <div class="messages text-danger" *ngIf="authorizeForm.controls.api_transaction_key.errors && (authorizeForm.controls.api_transaction_key.dirty || authorizeFormSubmitted || authorizeForm.controls.api_transaction_key.touched )">API Transaction Key can't be blank</div>
+                                </div>
+                                                                            
+                                
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <button type="submit" (click)="saveAuthorize()" class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple">Submit</button>
+                                  </div>
+                                </div>                              
+                              </div>
+                            </div>
+                          </form>                                    
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>  

@@ -1,0 +1,228 @@
+<div class="row">
+  <div class="col-md-12">
+    <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+    <ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+  </div>
+</div>
+<ng-container *ngIf="isProductSelectionView">
+    <div class="row m-b-20 bb-1-g">  
+        <div class="col-sm-12">
+            <span *ngIf="showCustomerLabel">
+                <label>Selected Customer: <strong>{{customerLabel}}</strong></label>
+            </span>
+          <span *ngIf="showCreateCustomerButton">
+            <label>Select Customers</label>
+            <select name="select" (change)="onCustomerChange($event)" [(ngModel)]="user_id" class="form-control form-control-default max-200">
+                <option *ngFor="let item of vendors" [value]="item.id">{{item.first_name}}</option>
+            </select>
+          </span>
+          <span *ngIf="showCreateCustomerButton">(or)&nbsp;&nbsp;&nbsp;</span>
+          <button type="button" *ngIf="showCreateCustomerButton" class="btn btn-primary" (click)="showModal()">Create Customer</button>
+          <button type="button" *ngIf="showBackHomeButton" class="btn btn-danger pull-right" (click)="backToHome()">Back</button>
+        </div>
+      </div>
+    <div class="row" *ngIf="showShippingForm">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Enter Shipping Address</h5>
+          </div>
+          <div class="card-block">
+            <form [formGroup]="shippingForm" class="form-material">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">First Name</label>
+                    <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+                    <div class="messages text-danger" *ngIf="shippingForm.controls.firstName.errors && (shippingForm.controls.firstName.dirty || shippingFormSubmitted || shippingForm.controls.firstName.touched )">First Name can't be blank</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+                    <div class="messages text-danger" *ngIf="shippingForm.controls.lastName.errors && (shippingForm.controls.lastName.dirty || shippingFormSubmitted || shippingForm.controls.lastName.touched )">Last Name can't be blank</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Address 1</label>
+                    <input type="text" class="form-control" placeholder="Address 1" formControlName="address1">
+                    <div class="messages text-danger" *ngIf="shippingForm.controls.address1.errors && (shippingForm.controls.address2.dirty || shippingFormSubmitted || shippingForm.controls.address1.touched )">Address 1 can't be blank</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Address 2</label>
+                    <input type="text" class="form-control" placeholder="Address 2" formControlName="address2">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">City</label>
+                    <input type="text" class="form-control" placeholder="City" formControlName="city">
+                    <div class="messages text-danger" *ngIf="shippingForm.controls.city.errors && (shippingForm.controls.city.dirty || shippingFormSubmitted || shippingForm.controls.city.touched )">City can't be blank</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">State</label>
+                    <input type="text" class="form-control" placeholder="State" formControlName="state">
+                    <div class="messages text-danger" *ngIf="shippingForm.controls.state.errors && (shippingForm.controls.state.dirty || shippingFormSubmitted || shippingForm.controls.state.touched )">State can't be blank</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Country</label>
+                    <input type="text" class="form-control" placeholder="Country" formControlName="country">
+                    <div class="messages text-danger" *ngIf="shippingForm.controls.country.errors && (shippingForm.controls.country.dirty || shippingFormSubmitted || shippingForm.controls.country.touched )">Country can't be blank</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label">Zipcode</label>
+                    <input type="text" class="form-control" maxlength="6" placeholder="Zipcode" formControlName="zipcode">
+                    <div class="messages text-danger" *ngIf="(shippingForm.controls.zipcode.errors && shippingForm.controls.zipcode.errors.required) && (shippingForm.controls.zipcode.dirty || shippingFormSubmitted || shippingForm.controls.zipcode.touched )">Zipcode can't be blank</div>
+                    <div class="messages text-danger" *ngIf="shippingForm.controls.zipcode.errors && (shippingForm.controls.zipcode.errors.number || shippingForm.controls.zipcode.dirty)">Zipcode Allowed numbers only</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row form-actions">
+                <div class="col-md-3">
+                    <input type="button" class="btn btn-danger" (click)="backShipping()" value="Back">
+                  <input type="button" class="btn btn-primary" (click)="createShippingAddress()" value="Submit">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Shipping Address Selection -->
+    <app-card *ngIf="showSelectShipping" [title]="'Select Shipping Address'" [classHeader]="true" [cardOptionBlock]="true">
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn pull-right btn-danger" (click)="setShipping()">Add Address</button>
+        </div>
+      </div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+          <div class="col-md-4 simple-cards" *ngFor="let a of customerAddress">
+              <div class="card user-card card-single" style="padding-left:10px;">
+                <div class="form-radio">
+                  <div class="radio radiofill radio-primary radio-inline">
+                    <label>
+                      <input type="radio" name="radio" [(ngModel)]="shippingAddressId" value="{{a.id}}">
+                      <i class="helper"></i><strong>{{a.first_name}}</strong>
+                    </label>
+                    <p>{{a.address1}}, {{a.address2}}</p>
+                    <p>{{a.city}}, {{a.state}}, {{a.country}} {{a.zip}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      
+      <div class="row">&nbsp;</div>
+      <div class="row">
+        <div class="col-md-2">
+          <button class="btn btn-primary" (click)="saveShipping()">Next</button>
+        </div>
+      </div>
+    </app-card>
+  <app-product-selection *ngIf="showProductForm" [orderType]="'SO'" (selectedData)="displayProducts($event)" ></app-product-selection>
+</ng-container>
+
+<ng-container *ngIf="!isProductSelectionView">
+  <div class="row" *ngIf="cartData"> 
+    <div class="col-xl-12 filter-bar custom-bar">
+        <section class="cart-back-nav">
+            <button type="button" (click)="back()" class="btn btn-primary btn-sm ripple light">Back</button>
+            <button type="button" (click)="createSO()" class="btn btn-primary btn-sm ripple light">Submit</button>
+        </section>
+      <nav class="navbar navbar-light bg-faded m-b-30 p-10 order-info">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <b style="color:#448aff">Order Items 
+              <br/><span style="color:#e91313;">{{cartData.totalItems}}</span>
+            </b>
+          </li>
+          <li class="nav-item active">
+            <b style="color:#448aff">Order Total 
+              <br/><span style="color:#e91313;">{{cartData.cartTotal | currency}}</span>
+            </b>
+          </li>          
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row simple-cards users-card">
+    <div class="col-md-4 col-xl-4" *ngFor="let productId of mappedProductIds">
+      <!-- {{mappedProductsById[productId].sku}} -->
+      <app-product-view [product]="mappedProductsById[productId]" [onloadCartUpdate]="'true'"></app-product-view>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-2">
+      <button type="button" (click)="createSO()" class="btn btn-primary btn-sm ripple light">Submit</button>
+     
+    </div>
+  </div>
+</ng-container>
+
+  
+
+
+
+<!-- Customer Creation -->
+<app-modal-animation [modalID]="'effect-1'" [modalClass]="'md-effect-1'">
+  <h3>Add Customer</h3>
+  <form [formGroup]="customerForm">
+    <div class="row" style="margin:0;">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label">First Name</label>
+          <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+          <div class="messages text-danger" *ngIf="((customerForm.touched || customerForm.controls.firstName.dirty || customerFormSubmitted) && customerForm.controls.firstName.errors)">First Name can't be blank</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label">Last Name</label>
+          <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+          <div class="messages text-danger" *ngIf="((customerForm.touched || customerForm.controls.lastName.dirty || customerFormSubmitted) && customerForm.controls.lastName.errors)">Last Name can't be blank</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label">Email</label>
+          <input type="text" class="form-control" formControlName="email" placeholder="Email">
+          <div class="messages text-danger" *ngIf="((customerForm.touched || customerForm.controls.email.dirty || customerFormSubmitted) && customerForm.controls.email.errors && customerForm.controls.email.errors.required )">Email can't be blank</div>
+          <div class="messages text-danger" *ngIf="(customerForm.controls.email.errors && customerForm.controls.email.errors.email) && (customerForm.controls.email.dirty || customerForm.controls.email.touched )">Email-ID entered is not valid email address.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="control-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Password">
+          <div class="messages text-danger" *ngIf="((customerForm.touched || customerForm.controls.password.dirty || customerFormSubmitted) && customerForm.controls.password.errors)">Password can't be blank</div>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" class="form-control" formControlName="userID" >
+    <div class="row" style="margin:0;padding-bottom: 20px;">
+      <div class="col-md-4 pull-right">
+        <button (click)="close()" class="btn pull-left btn-danger">Close</button>
+        <button class="btn btn-primary pull-right" type="submit"(click)="addCustomer()">Save</button>
+      </div>
+    </div>
+  </form>
+</app-modal-animation>

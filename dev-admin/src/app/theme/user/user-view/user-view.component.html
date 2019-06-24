@@ -1,0 +1,65 @@
+
+<div  class="card" *ngIf="user">
+    <div  class="card-header">
+      <h5  class="card-header-text">User Information</h5>
+     
+    </div>
+    <div  class="card-body">
+      <!----><div  class="view-info ng-tns-c14-11 ng-star-inserted">
+        <div class="row">
+          <div  class="col-lg-12">
+            <div class="general-info">
+              <div  class="row">
+                <div  class="col-lg-12 col-xl-6">
+                  <div  class="table-responsive">
+                    <table class="table m-0">
+                      <tbody>
+                      <tr  class="ng-tns-c14-11">
+                        <th  class="ng-tns-c14-11" scope="row">Email </th>
+                        <td  class="ng-tns-c14-11">{{user.email}}</td>
+                      </tr>
+                      <tr  class="ng-tns-c14-11">
+                        <th  class="ng-tns-c14-11" scope="row">First Name</th>
+                        <td  class="ng-tns-c14-11">{{user.firstName}}</td>
+                      </tr>
+                      <tr  class="ng-tns-c14-11">
+                        <th  class="ng-tns-c14-11" scope="row">Last Name</th>
+                        <td  class="ng-tns-c14-11">{{user.lastName}}</td>
+                      </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+               
+                
+              </div>
+              
+            </div>
+            
+          </div>
+          
+        </div>
+        
+      </div>
+      
+      <!---->
+      <div class="row justify-content-md-center">
+        <div class="col-md-2">
+          <button type="button" class="btn btn-primary" (click)="back()">Back</button>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    
+  </div>
+
+  <div  class="card" *ngIf="!user">
+    <div class="cell preloader5 loader-block">
+      <div class="circle-5 l"></div>
+      <div class="circle-5 m"></div>
+      <div class="circle-5 r"></div>
+    </div>
+  </div>

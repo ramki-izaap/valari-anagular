@@ -1,0 +1,290 @@
+<form *ngIf="vendorForm" [formGroup]="vendorForm" class="form-material" action="javascript:">
+<div class="row">  
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>General Info</h5>
+      </div>
+      <div class="card-block">        
+        
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="boutiqueName" class="form-control" >
+          <span class="form-bar"></span>
+          <label class="float-label">Boutique Name</label>
+          <div class="form-control-feedback" *ngIf="boutiqueName.errors && (boutiqueName.dirty || vendorFormSubmitted || boutiqueName.touched)">
+            <div class="messages text-danger error" *ngIf="boutiqueName.errors.required">Boutique Name is required</div>
+          </div>
+        </div>
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="storeName" class="form-control" >
+          <span class="form-bar"></span>
+          <label class="float-label">Store Url</label>
+          <div class="form-control-feedback" *ngIf="storeName.errors && (storeName.dirty || vendorFormSubmitted || storeName.touched)">
+            <div class="messages text-danger error" *ngIf="storeName.errors.required">Store name is required</div>
+            <div class="messages text-danger error" *ngIf="storeName.errors.pattern">Store name is not valid. Please enter only letters without whitespace</div>
+            <div class="messages text-danger error" *ngIf="storeName.invalid && storeName.errors.storeTaken">Store name is already taken.</div>
+          </div>
+          <div *ngIf="storeName.value">
+            <small>Store Url: http://{{storeName.value}}.shopcsw.com</small>
+          </div>
+        </div>
+        
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="email" class="form-control">
+          <span class="form-bar"></span>
+          <label class="float-label">Email (exa@gmail.com)</label>
+          <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || vendorFormSubmitted || email.touched)">
+            <div class="messages text-danger error" *ngIf="email.errors.required">Email is required</div>
+            <div class="messages text-danger error" *ngIf="!email.errors.required && email.errors.email">Please enter valid email.</div>
+          </div>
+        </div>
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="phoneNumber" class="form-control">
+          <span class="form-bar"></span>
+          <label class="float-label">Phone Number</label>
+          <div class="form-control-feedback" *ngIf="phoneNumber.errors && (phoneNumber.dirty || vendorFormSubmitted || phoneNumber.touched)">
+            <div class="messages text-danger error" *ngIf="phoneNumber.errors.required">Phone Number is required</div>
+            <div class="messages text-danger error" *ngIf="phoneNumber.errors.pattern">Phone Number is not valid. Please enter only Numbers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Shipping Info</h5>
+      </div>
+      <div class="card-block">
+        <div class="form-group form-primary form-static-label">
+          <select formControlName="priceId" class="form-control">
+            <option *ngFor="let item of priceConfig" [value]="item.id">{{item.price}}</option>
+          </select>
+          <span class="form-bar"></span>
+          <label class="float-label">Price Multiplier</label>
+          <div class="form-control-feedback" *ngIf="priceId.errors && (priceId.dirty || vendorFormSubmitted || priceId.touched)">
+            <div class="messages text-danger error" *ngIf="priceId.errors.required">Price Multiplier is required</div>
+          </div>
+        </div>
+        <div class="form-group form-primary form-static-label">
+          <select formControlName="shippingRate" class="form-control">
+            <option value="">--Select--</option>
+            <option value="0">FREE</option>
+            <option value="5">$5 FLAT GROUND</option>
+            <option value="7">$7 FLAT GROUND</option>
+            <option value="10">$10 FLAT GROUND</option>
+          </select>
+          <span class="form-bar"></span>
+          <label class="float-label">Shipping Rate</label>
+          <div class="form-control-feedback" *ngIf="shippingRate.errors && (shippingRate.dirty || vendorFormSubmitted || shippingRate.touched)">
+            <div class="messages text-danger error" *ngIf="shippingRate.errors.required">Shipping Rate is required</div>
+          </div>
+        </div>
+        <!-- <div class="form-group form-primary form-static-label">
+          <select formControlName="returnPolicy" class="form-control">
+            <option value="">--Select--</option>
+            <option value="30">30 Days</option>
+            <option value="45">45 Days</option>
+            <option value="60">60 Days</option>
+          </select>
+          <span class="form-bar"></span>
+          <label class="float-label">Return Policy</label>
+          <div class="form-control-feedback" *ngIf="returnPolicy.errors && (returnPolicy.dirty || vendorFormSubmitted || returnPolicy.touched)">
+            <div class="messages text-danger error" *ngIf="returnPolicy.errors.required">Return Policy is required</div>
+          </div>
+        </div> -->
+        <!-- <div class="form-group form-primary form-static-label">
+          <select formControlName="returnShippingRate" class="form-control">
+            <option value="">--Select--</option>
+            <option value="5">Refunded $5</option>
+            <option value="7">Refunded $7</option>
+            <option value="10">Refunded $10</option>
+          </select>
+          <span class="form-bar"></span>
+          <label class="float-label">Return Shipping Rate</label>
+          <div class="form-control-feedback" *ngIf="returnShippingRate.errors && (returnShippingRate.dirty || vendorFormSubmitted || returnShippingRate.touched)">
+            <div class="messages text-danger error" *ngIf="returnShippingRate.errors.required">Return Shipping Rate is required</div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+ 
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Address Info</h5>
+      </div>
+      <div class="card-block">
+
+      <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="vendorName" class="form-control" >
+          <span class="form-bar"></span>
+          <label class="float-label">Vendor Name</label>
+          <div class="form-control-feedback" *ngIf="vendorName.errors && (vendorName.dirty || vendorFormSubmitted || vendorName.touched)">
+            <div class="messages text-danger error" *ngIf="vendorName.errors.required">Vendor Name is required</div>
+          </div>
+        </div>
+
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="address1" class="form-control"  >
+          <span class="form-bar"></span>
+          <label class="float-label">Address 1</label>
+          <!-- <div class="form-control-feedback" *ngIf="address1.errors && (address1.dirty || vendorFormSubmitted || address1.touched)">
+            <div class="messages text-danger error" *ngIf="address1.errors.required">Addrees 1 is required</div>
+          </div> -->
+        </div>
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="address2" class="form-control"  >
+          <span class="form-bar"></span>
+          <label class="float-label">Address 2</label>
+          <!-- <div class="form-control-feedback" *ngIf="address2.errors && (address2.dirty || vendorFormSubmitted || address2.touched)">
+            <div class="messages text-danger error" *ngIf="address2.errors.required">Addrees 2 is required</div>
+          </div> -->
+        </div>
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="city" class="form-control"  >
+          <span class="form-bar"></span>
+          <label class="float-label">City</label>
+          <!-- <div class="form-control-feedback" *ngIf="city.errors && (city.dirty || vendorFormSubmitted || city.touched)">
+            <div class="messages text-danger error" *ngIf="city.errors.required">City is required</div>
+          </div> -->
+        </div>
+
+        <div class="form-group form-primary form-static-label">
+          <select formControlName="country" class="form-control" (change)="countryChange($event)">
+            <!-- <option *ngFor="let item of countries" [value]="item.code">{{item.name}}</option> -->
+            <option value="US">United States</option>
+            <option value="CA">Canada</option> 
+          </select>
+        <span class="form-bar"></span>
+        <label class="float-label">Country</label>
+        <!-- <div class="form-control-feedback" *ngIf="country.errors && (country.dirty || vendorFormSubmitted || country.touched)">
+          <div class="messages text-danger error" *ngIf="country.errors.required">Country is required</div>
+        </div> -->
+      </div>
+
+    <div class="form-group form-primary form-static-label">
+      <select formControlName="state" class="form-control">
+        <option *ngFor="let item of states" [value]="item.state_code">{{item.state_name}}</option>
+      </select>
+      <span class="form-bar"></span>
+      <label class="float-label">State/Region</label>
+      <!-- <div class="form-control-feedback" *ngIf="state.errors && (state.dirty || vendorFormSubmitted || state.touched)">
+        <div class="messages text-danger error" *ngIf="state.errors.required">State is required</div>
+      </div> -->
+    </div>
+        
+        <div class="form-group form-primary form-static-label">
+          <input type="text" formControlName="zip" class="form-control" >
+          <span class="form-bar"></span>
+          <label class="float-label">Zip/Postal Code</label>
+          <!-- <div class="form-control-feedback" *ngIf="zip.errors && (zip.dirty || vendorFormSubmitted || zip.touched)">
+            <div class="messages text-danger error" *ngIf="zip.errors.required">Zip is required</div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Pdf Upload</h5>
+      </div>
+      <div class="card-block">
+        <div class="form-group form-primary form-static-label">
+          <input type="file" class="form-control" name="userfile" (change)="onFileChange($event)">
+          <span class="form-bar"></span>
+         
+        </div>
+      </div>
+
+  </div>
+</div>
+  <!-- <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Return Address Info</h5>
+        </div>
+        <div class="card-block">
+          <div class="form-group form-primary form-static-label">
+            <input type="text" formControlName="retaddress1" class="form-control"  >
+            <span class="form-bar"></span>
+            <label class="float-label">Address 1</label>
+            <div class="form-control-feedback" *ngIf="retaddress1.errors && (retaddress1.dirty || vendorFormSubmitted || retaddress1.touched)">
+              <div class="messages text-danger error" *ngIf="retaddress1.errors.required">Addrees 1 is required</div>
+            </div>
+          </div>
+          <div class="form-group form-primary form-static-label">
+            <input type="text" formControlName="retaddress2" class="form-control"  >
+            <span class="form-bar"></span>
+            <label class="float-label">Address 2</label>
+            <div class="form-control-feedback" *ngIf="retaddress2.errors && (retaddress2.dirty || vendorFormSubmitted || retaddress2.touched)">
+              <div class="messages text-danger error" *ngIf="retaddress2.errors.required">Addrees 2 is required</div>
+            </div>
+          </div>
+          <div class="form-group form-primary form-static-label">
+            <input type="text" formControlName="retcity" class="form-control"  >
+            <span class="form-bar"></span>
+            <label class="float-label">City</label>
+            <div class="form-control-feedback" *ngIf="retcity.errors && (retcity.dirty || vendorFormSubmitted || retcity.touched)">
+              <div class="messages text-danger error" *ngIf="city.errors.required">City is required</div>
+            </div>
+          </div>
+          <div class="form-group form-primary form-static-label">
+            <select formControlName="retstate" class="form-control">
+              <option *ngFor="let item of states" [value]="item.state_code">{{item.state_name}}</option>
+            </select>
+            <span class="form-bar"></span>
+            <label class="float-label">State/Region</label>
+            <div class="form-control-feedback" *ngIf="retstate.errors && (retstate.dirty || vendorFormSubmitted || retstate.touched)">
+              <div class="messages text-danger error" *ngIf="retstate.errors.required">State is required</div>
+            </div>
+          </div>
+          <div class="form-group form-primary form-static-label">
+              <select formControlName="retcountry" class="form-control">
+                <option *ngFor="let item of countries" [value]="item.code">{{item.name}}</option>
+              </select>
+            <span class="form-bar"></span>
+            <label class="float-label">Country</label>
+            <div class="form-control-feedback" *ngIf="retcountry.errors && (retcountry.dirty || vendorFormSubmitted || retcountry.touched)">
+              <div class="messages text-danger error" *ngIf="retcountry.errors.required">Country is required</div>
+            </div>
+          </div>
+          <div class="form-group form-primary form-static-label">
+            <input type="text" formControlName="retzip" class="form-control" >
+            <span class="form-bar"></span>
+            <label class="float-label">Zip/Postal Code</label>
+            <div class="form-control-feedback" *ngIf="retzip.errors && (retzip.dirty || vendorFormSubmitted || retzip.touched)">
+              <div class="messages text-danger error" *ngIf="retzip.errors.required">Zip is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  
+</div>
+</form>
+<div class="row justify-content-md-center">
+  <div class="col-md-2">
+    <button type="button" class="btn btn-primary btn-lg" (click)="submit()">Submit</button>
+  </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>One fine body&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

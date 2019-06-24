@@ -1,0 +1,74 @@
+<section class="login-block">
+  <!-- Container-fluid starts -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <!-- Authentication card start -->
+
+        <form [formGroup]="forgotPasswordForm" (ngSubmit)="forgotPassword()" class="md-float-material form-material" action="javascript:">
+          <div class="text-center">
+            <img src="https://s3.amazonaws.com/inventory-clara/images/logo-login-new.png" width="90px" height="90px" alt="Clara Sunwoo">
+          </div>
+          <div class="auth-box card">
+            <div class="card-block">
+              <div class="row m-b-20">
+                <div class="col-md-12">
+                  <h4 class="text-center">Recover your password</h4>
+                </div>
+              </div>
+
+              <ng-container *ngIf="!emailSent">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                      <p>
+                        Enter your <b>email address</b> that you used to register. We'll send you an email with a link to reset your password.
+                      </p>
+                    </div>
+                </div>
+
+                <div class="form-group form-primary form-static-label">
+                  <input type="text" name="email" id="email" formControlName="email" class="form-control" required="">
+                  <span class="form-bar"></span>
+                  <label class="float-label"> Email address</label>
+                  <div class="form-control-feedback" *ngIf="forgotPasswordForm.controls.email.errors && (forgotPasswordForm.controls.email.dirty || forgotPasswordForm.controls.email.touched)">
+                    <div class="messages text-danger error" *ngIf="forgotPasswordForm.controls.email.errors && forgotPasswordForm.controls.email.errors.required">Email is required</div>
+                    <div class="messages text-danger error" *ngIf="forgotPasswordForm.controls.email.errors && !forgotPasswordForm.controls.email.errors.required && forgotPasswordForm.controls.email.errors.email">Please enter valid email.</div>
+                  </div>
+                </div>
+
+                <div @load class="row" *ngIf="validation && !validation.isValid">
+                  <div class="col-md-12 messages text-danger error">
+                    <p>{{validation.message}}</p>
+                  </div>
+                </div>
+                
+
+                <div class="row">
+                  <div class="col-md-4 offset-md-4">
+                    <button type="submit" class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple">Send</button>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="emailSent">
+                <div class="row m-b-20">
+                  <div class="col-md-12">
+                    <p>
+                      A message has been sent to you by email with instructions on how to reset your password.       
+                    </p>
+                    </div>
+                </div>
+              </ng-container>
+
+              <p class="f-w-600 text-right"><a [routerLink]="['/login']">Back to Login.</a></p> 
+
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end of col-sm-12 -->
+    </div>
+    <!-- end of row -->
+  </div>
+  <!-- end of container-fluid -->
+</section>

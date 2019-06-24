@@ -1,0 +1,36 @@
+<div class="row">
+  <a [href]="downloadURL" download *ngIf="showDownloadButton" class="btn btn-danger pull-left">Click Here to Download CSV</a>
+</div>
+<br>
+<div class="row"></div>
+
+<app-card [title]="" class="card-bg">    
+  <app-iz-table [izTableData]="izTable" [columns]="columns" [rows]="rows" (listChange)="loadPage()" (doBulkAction)="doBulkAction()"></app-iz-table> 
+</app-card>
+
+<ng-template #roleTemplate let-value="value" ngx-datatable-cell-template>
+  <strong>{{value}}</strong>
+</ng-template>
+
+<ng-template #quantityTemplate  let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-cell-template>
+  <span (dblclick)="editing[rowIndex + '-quantity'] = true"
+    *ngIf="!editing[rowIndex + '-quantity']" class="variants_quantity" title="Double click to edit" style="width:80px;">
+  {{value}}
+</span>
+<input
+autofocus
+(blur)="createPO($event, 'quantity', rowIndex)" 
+*ngIf="editing[rowIndex+ '-quantity']"
+type="text" 
+[value]="value"
+class="form-control"/>
+</ng-template>
+
+<ng-template #priceTemplate let-value="value" ngx-datatable-cell-template>
+    <strong>{{value|currency}}</strong>
+  </ng-template>
+<ng-template #actionTemplate let-value="value" ngx-datatable-cell-template>
+  <i class="fa fa-ban custom-btn" (click)="delete(value)"></i>
+</ng-template>
+
+

@@ -1,0 +1,74 @@
+<section class="login-block">
+  <!-- Container-fluid starts -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <!-- Authentication card start -->
+        <form [formGroup]="loginForm" class="md-float-material form-material" action="javascript:">
+          <div class="text-center">
+            <img src="https://s3.amazonaws.com/inventory-clara/images/logo-login-new.png" width="90px" height="90px" alt="Clara Sunwoo">
+            <h3 class="text-center">Admin Panel</h3>
+          </div>
+          <div class="auth-box card">
+            <div class="card-block">
+              <div class="row m-b-20">
+                <div class="col-md-12">
+                  <h4 class="text-center">Sign In</h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+                </div>
+              </div>
+              <div class="form-group form-primary form-static-label">
+                <input type="email" formControlName="email" class="form-control" required="">
+                <span class="form-bar"></span>
+                <label class="float-label">Email</label>
+                <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
+                  <div class="messages text-danger error" *ngIf="email.errors && email.errors.required">Email is required</div>
+                  <div class="messages text-danger error" *ngIf="email.errors && !email.errors.required && email.errors.email">Please enter valid email.</div>
+                </div>
+              </div>
+
+              <div class="form-group form-primary form-static-label">
+                <input type="password" (keydown)="onKeydown($event)" formControlName="password" class="form-control" required="">
+                <span class="form-bar"></span>
+                <label class="float-label">Password</label>
+                <div class="form-control-feedback" *ngIf="password.errors && (password.dirty || password.touched)">
+                  <div class="messages text-danger error" *ngIf="password.errors && password.errors.required">Password is required</div>
+                  <div class="messages text-danger error" *ngIf="password.errors && password.errors.minlength">Password must be 6 characters long.</div>
+                </div>
+              </div>
+              <div class="row m-t-25 text-left">
+                <div class="col-12">
+                  <div class="checkbox-fade fade-in-primary d-">
+                    <label>
+                      <input type="checkbox" formControlName="rememberMe">
+                      <span class="cr"><i class="cr-icon fa fa-check txt-primary"></i></span>
+                      <span class="text-inverse">Remember me</span>
+                    </label>
+                  </div>
+                  <div class="forgot-phone text-right f-right">
+                    <a [routerLink]="['/auth/forgotpassword']" class="text-right f-w-600"> Forgot Password?</a>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-t-30">
+                <div class="col-md-12">
+                  <button type="button" (click)="doLogin()" [ngClass]="{
+                    'btn-primary': loginForm.valid
+                  }" class="btn  btn-md btn-block waves-light text-center m-b-20 ripple">Sign in</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <!-- end of form -->
+      </div>
+      <!-- end of col-sm-12 -->
+    </div>
+    <!-- end of row -->
+  </div>
+  <!-- end of container-fluid -->
+</section>

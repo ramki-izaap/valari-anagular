@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-12">
+
+
+    <div class="card">
+      <div class="card-block">
+        <!--  -->
+          <div class="md-tabs md-left-tabs">
+            <ngb-tabset>
+              <ngb-tab title="Shipping">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    
+                      <form [formGroup]="settingShippingForm" (ngSubmit)="settingShippingUpdate()" class="form-material">
+                        
+                        <div class="form-group row">
+                          <label class="col-sm-6 col-form-label">Shipping Cost</label>
+                          <div class="col-sm-6" data-dolor> 
+                           <input type="text" class="form-control" id="shipping_cost"  placeholder="Shipping Cost" formControlName="shipping_cost">
+                            <div class="messages text-danger error" *ngIf="settingShippingForm.controls.shipping_cost.errors && (settingShippingForm.controls.shipping_cost.dirty || settingFormSubmitted || settingShippingForm.controls.shipping_cost.touched )">Shipping Cost can't be blank</div>
+                          </div>
+                        </div>
+                        
+                         <div class="form-group row">
+                          <label class="col-sm-2"></label>
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary m-b-0 ripple light">Create</button>
+                          </div>
+                        </div>
+                      </form>
+                    
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Others">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <p class="m-4">In Progress</p>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+             <!-- 
+              <ngb-tab title="Messages">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <p class="m-4"></p>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Settings">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <p class="m-4"></p>
+                  </div>
+                </ng-template>
+              </ngb-tab> -->
+            </ngb-tabset>
+          </div>
+        <!--  -->
+      </div>
+    </div>
+
+
+  </div>

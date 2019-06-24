@@ -1,0 +1,45 @@
+
+  <!-- Simple card start -->   
+  <div class="card user-card" *ngIf="sizeVariation">
+    <div class="card-header-img">
+      <img *ngIf="product.featuredImage" class="img-fluid" src="https://s3.amazonaws.com/inventory-clara/product-images/{{product.id}}/{{product.featuredImage}}" alt="card-img">
+      <img *ngIf="product.featuredImage==null" class="img-fluid" src="https://s3.amazonaws.com/inventory-clara/images/nophoto2.jpg" alt="card-img">
+      <h4>{{product.sku}}</h4>
+      <h5>{{product.price | currency}}</h5>
+    </div>
+    <div class="form-group row justify-content-center">
+      <div  class="col-sm-2">&nbsp;</div>
+      <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-2" *ngFor="let v of sizeVariation.values">{{v.shortCode}}</div>
+        </div>
+      </div>                     
+    </div>
+    <ng-container *ngFor="let colorCode of availableColors">
+      <div class="form-group row justify-content-center">  
+        <div  class="col-sm-2">
+          {{getColorValue(colorCode)}}
+        </div>
+        <div class="col-sm-10">
+          <div class="row">
+            <div  class="col-sm-2" *ngFor="let s of sizeVariation.values">
+              <input type="text" class="form-control" [value]="variants[colorCode][s.shortCode].quantity" (keyup)="addToCart($event, variants[colorCode][s.shortCode])" [disabled]="!variants[colorCode][s.shortCode].enabled">            
+            </div>
+          </div>
+        </div>            
+      </div>
+    </ng-container>            
+  </div>
+
+  
+
+
+
+  
+  <!-- Simple card end -->
+
+
+
+
+
+

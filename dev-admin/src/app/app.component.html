@@ -1,0 +1,16 @@
+<router-outlet><app-spinner></app-spinner></router-outlet>
+<ng-template #commonModal let-c="close" let-d="dismiss">
+    <div class="status-cont statusbg-success">
+    <div class="modal-header">
+      <h4 class="modal-title">{{commonModalData.title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{commonModalData.content}}&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="d('Close click')">Close</button>
+    </div></div>
+</ng-template>

@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="md-tabs md-card-tabs">
+      <ngb-tabset>
+        <!-- <ngb-tab title="Variants">
+          <ng-template ngbTabContent>
+              <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <form [formGroup]= "myForm" (ngSubmit)="VariantsCreation()" class="form-material">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Variants Name</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="name" placeholder="Variants Name" formControlName="variants_name">
+                              <div class="messages text-danger" *ngIf="myForm.controls.variants_name.errors && (myForm.controls.variants_name.dirty || variantsFormSubmitted || myForm.controls.variants_name.touched )">Variants Name can't be blank</div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2"></label>
+                            <div class="col-sm-10">
+                              <button type="submit" class="btn btn-primary m-b-0 ripple light">Submit</button>
+                            </div>
+                        </div>
+                      </form>	
+                    </div>
+                  </div>  
+                </div>
+              </div>
+          </ng-template>
+        </ngb-tab> -->
+
+        <ngb-tab title="Variants Value">
+          <ng-template ngbTabContent>
+            <!-- <div [@fadeInOutTranslate] class="m-t-15"> -->
+              <!-- personal card start -->
+              <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <form [formGroup]= "myForm1" (ngSubmit)="VariantsValueCreation()" class="form-material">
+                          <div _ngcontent-c7="" class="form-group row">
+                              <label _ngcontent-c7="" class="col-sm-2 col-form-label">Variants Name</label>
+                              <div _ngcontent-c7="" class="col-sm-10">
+                                <select _ngcontent-c7="" class="form-control" name="select" formControlName = "variants_id">
+                                  <option *ngFor="let variants of variantslist" [value]="variants.id">{{variants.variant}}</option>
+                                </select>
+                                <div class="messages text-danger" *ngIf="myForm1.controls.variants_id.errors && (myForm1.controls.variants_id.dirty || variantsValueFormSubmitted || myForm1.controls.variants_id.touched )">Variants Name can't be blank</div> 
+                              </div>
+                            </div>
+                            
+                          
+                            <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">Variants Value</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" placeholder="Variants Value" formControlName="variants_value">
+                                <div class="messages text-danger" *ngIf="myForm1.controls.variants_value.errors && (myForm1.controls.variants_value.dirty || variantsValueFormSubmitted || myForm1.controls.variants_value.touched )">Variants Value can't be blank</div>
+                              </div>
+                          </div>
+                          <div class="form-group row">
+                              <label class="col-sm-2 col-form-label">Short Code</label>
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" placeholder="Short Code" formControlName="short_code">
+                                <div class="messages text-danger" *ngIf="myForm1.controls.short_code.errors && (myForm1.controls.short_code.dirty || variantsValueFormSubmitted || myForm1.controls.short_code.touched )">Short Code can't be blank</div>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label class="col-sm-2"></label>
+                              <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary m-b-0 ripple light">Submit</button>
+                              </div>
+                          </div>
+                        </form>
+                    </div>
+                  </div>  
+                  <!-- end of edit-info -->
+                </div>
+                <!-- end of card-body -->
+              </div>
+          
+            <!-- </div> -->
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>

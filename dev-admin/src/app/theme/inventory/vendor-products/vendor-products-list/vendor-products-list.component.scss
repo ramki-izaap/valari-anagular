@@ -1,0 +1,39 @@
+.variants_quantity.sort-active:hover {
+    background-color:rgba(173, 216, 230,0.5);
+    color:blue;
+    text-decoration: dashed;
+}
+
+.variants_quantity.sort-active:hover:before {
+    opacity:1;
+}
+
+span.variants_quantity {
+    display:block;
+    width:100% !important;
+    padding:5px;
+    position:relative;
+    cursor:pointer
+}
+
+span.variants_quantity:after {
+    content:"Double click to Edit";
+    font-size:0.9em;
+    background:transparent;
+    border:1px solid transparent;
+    color:transparent;
+    padding:5px;
+    border-radius:5px;
+    display:block
+}
+
+span.variants_quantity:hover:after {
+    content:"Double click to Edit";
+    font-size:0.9em;
+    background:#5cb85c;
+    border:1px solid #4cae4c;
+    color:#fff;
+    padding:5px;
+    border-radius:5px;
+    display:block
+}

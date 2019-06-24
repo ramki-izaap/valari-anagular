@@ -1,0 +1,316 @@
+<div class="row">
+  <div class="col-sm-12" >
+    <!-- Basic Inputs Validation start -->
+
+      <form [formGroup]="productForm" (ngSubmit)="productCreation()" >
+
+      <div class="form-group row radio">
+          <label class="col-sm-2 col-form-label">Product Type</label>
+          <div class="col-sm-10">
+               <select  name="product_type" class="form-control" formControlName="product_type" disabled>
+                  <option value="simple" >Simple</option>
+                  <option value="configurable" selected>Configurable</option>
+                </select>
+              
+             <div class="messages text-danger" *ngIf="productForm.controls.product_type.errors && (productForm.controls.product_type.dirty || productForm.controls.product_type.touched )">Select Product Type Option </div>
+          </div>
+        </div>
+        
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" placeholder="Product Name" formControlName="name">
+            <div class="messages text-danger" *ngIf="productForm.controls.name.errors && (productForm.controls.name.dirty || productFormSubmitted || productForm.controls.name.touched )">Name can't be blank</div>
+          </div>
+        </div>
+
+        <!-- <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Sku</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="sku"  placeholder="Sku" formControlName="sku">
+            <div class="messages text-danger" *ngIf="productForm.controls.sku.errors && productForm.controls.sku.errors.required && (productForm.controls.sku.dirty || productFormSubmitted || productForm.controls.sku.touched )">Sku can't be blank</div>
+            <div class="messages text-danger error" *ngIf="productForm.controls.sku.errors.pattern">Store name is not valid. Please enter only letters without whitespace</div>
+          </div>
+        </div> -->
+
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Sku</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="sku"  placeholder="Sku" formControlName="sku">
+            <div class="form-control-feedback" *ngIf="productForm.controls.sku.errors && (productForm.controls.sku.dirty || productFormSubmitted || productForm.controls.sku.touched )">
+              <div class="messages text-danger" *ngIf="productForm.controls.sku.errors.required">Sku can't be blank</div>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10 custom-editor">
+            <!-- <textarea [froalaEditor] class="form-control" id="description" placeholder="Description" formControlName="description"></textarea> -->
+            <app-ngx-editor [placeholder]="'Description...'" [spellcheck]="true"   id="description" placeholder="Description" formControlName="description"></app-ngx-editor>
+            <div class="messages text-danger" *ngIf="productForm.controls.description.errors && (productForm.controls.description.dirty || productFormSubmitted || productForm.controls.description.touched )">Description can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Category</label>
+          <div class="col-sm-10">
+              
+              <select  name="category" class="form-control" formControlName="category">
+                <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+              </select>
+
+              <!-- <input auto-complete [(ngModel)]="myData" [source]="mySource" /> -->
+
+           <div class="messages text-danger" *ngIf="productForm.controls.category.errors && (productForm.controls.category.dirty || productFormSubmitted ||productForm.controls.category.touched )">Category can't be blank</div>
+         
+            <!-- <div class="form-control" (click)="showAutocomplete=true">
+
+            
+              <li class="addr" *ngFor="let category of selectedCategories; let i = index;" >
+                <span>{{category}}</span>
+                <span class="remove" (click)="removeFromCategory(i)">x</span>
+              </li>
+      
+              <ngui-auto-complete
+                (valueSelected)="addToCategory($event)"
+                [accept-user-input]="true"
+                [source]="categoryAutoComplete"
+                display-property-name="name"
+                [list-formatter]="myListFormatter"
+                loading-text="Google Is Thinking..."
+                [loading-template]="loadingTemplate"
+                max-num-list="5"
+                min-chars="2"
+                no-match-found-text="No Match Found"
+                path-to-data="results"
+                placeholder="Enter Address" 
+                >
+             </ngui-auto-complete> 
+
+            </div> -->
+
+          </div>
+        </div>
+       
+         <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Price</label>
+            <div class="col-sm-10">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                    </div>
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Price" formControlName="price">
+                    <div class="input-group-append">
+                      <span class="input-group-text"></span>
+                    </div>
+                  </div>
+                  <div class="form-control-feedback" *ngIf="productForm.controls.price.errors && (productForm.controls.price.dirty || productFormSubmitted || productForm.controls.price.touched )">
+                    <div class="messages text-danger" *ngIf="productForm.controls.price.errors.required">Price can't be blank</div>
+                    <div class="messages text-danger" *ngIf="productForm.controls.price.errors.pattern">Price is not valid</div>
+                  </div>
+            
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Quantity</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="quantity" placeholder="Quantity" formControlName="quantity">
+              <div class="form-control-feedback" *ngIf="productForm.controls.quantity.errors && (productForm.controls.quantity.dirty || productFormSubmitted || productForm.controls.quantity.touched )">
+                <div class="messages text-danger" *ngIf="productForm.controls.quantity.errors.required">Quantity can't be blank</div>
+                <div class="messages text-danger" *ngIf="productForm.controls.quantity.errors.pattern">Quantity is not valid. Please enter only Numbers</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Material Content</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" placeholder="Material Content" formControlName="materialContent"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Care Instructions</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" placeholder="Care Instructions" formControlName="careInstructions"></textarea>
+            </div>
+          </div>
+
+
+
+          <div class="form-group row radio">
+            <label class="col-sm-2 col-form-label">Is Active</label>
+            <div class="col-sm-10">
+                <label class="center-block">
+                 <input type="radio" class="form-control" formControlName="isActive" value="1">
+                 Yes
+                </label> 
+                <label class="center-block"> 
+                  <input type="radio" class="form-control" formControlName="isActive" value="0">
+                No 
+                </label> 
+              <div class="messages text-danger" *ngIf="productForm.controls.isActive.errors && (productForm.controls.isActive.dirty || productFormSubmitted || productForm.controls.isActive.touched )">Please Select isActive Option </div>
+            </div>
+          </div>
+          
+          <div class="form-group row radio">
+            <label class="col-sm-2 col-form-label">Made in USA</label>
+            <div class="col-sm-10">
+                <label class="center-block">
+                 <input type="radio" class="form-control" formControlName="madeInusa" value="Y">
+                 Yes
+                </label> 
+                <label class="center-block"> 
+                  <input type="radio" class="form-control" formControlName="madeInusa" value="N">
+                No 
+                </label> 
+            
+            </div>
+          </div>
+
+          <div class="form-group row radio">
+            <label class="col-sm-2 col-form-label">Wrinkle Free Knit</label>
+            <div class="col-sm-10">
+                <label class="center-block">
+                 <input type="radio" class="form-control" formControlName="wrinkleFreeknit" value="Y">
+                 Yes
+                </label> 
+                <label class="center-block"> 
+                  <input type="radio" class="form-control" formControlName="wrinkleFreeknit" value="N">
+                No 
+                </label> 
+            
+            </div>
+          </div>
+
+          <div class="form-group row radio">
+            <label class="col-sm-2 col-form-label">Regular Fit</label>
+            <div class="col-sm-10">
+                <label class="center-block">
+                 <input type="radio" class="form-control" formControlName="regularFit" value="Y">
+                 Yes
+                </label> 
+                <label class="center-block"> 
+                  <input type="radio" class="form-control" formControlName="regularFit" value="N">
+                No 
+                </label> 
+            
+            </div>
+          </div>
+
+          <div class="form-group row radio">
+            <label class="col-sm-2 col-form-label">Slim Fit</label>
+            <div class="col-sm-10">
+                <label class="center-block">
+                 <input type="radio" class="form-control" formControlName="slimFit" value="Y">
+                 Yes
+                </label> 
+                <label class="center-block"> 
+                  <input type="radio" class="form-control" formControlName="slimFit" value="N">
+                No 
+                </label> 
+            
+            </div>
+          </div>
+
+          <div class="form-group row radio">
+            <label class="col-sm-2 col-form-label">Loose Fit</label>
+            <div class="col-sm-10">
+                <label class="center-block">
+                 <input type="radio" class="form-control" formControlName="looseFit" value="Y">
+                 Yes
+                </label> 
+                <label class="center-block"> 
+                  <input type="radio" class="form-control" formControlName="looseFit" value="N">
+                No 
+                </label> 
+            
+            </div>
+          </div>
+
+          <!-- <div class="form-group row" *ngIf="variantsButtonEnable"> -->
+              <div class="form-group row">
+              <label class="col-sm-2 col-form-label"></label>
+              <div class="col-sm-10">
+                <button type="button" class="btn btn-default ripple" (click)="openModal(variantModal)">Select Variants</button>
+              </div>
+          </div>
+
+         <div class="form-group row">
+          <label class="col-sm-2"></label>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary m-b-0 ripple light">Create</button>
+          </div>
+        </div>
+ 
+      </form>
+      
+    <ng-template #variantModal let-c="close" let-d="dismiss">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Variants</h4>
+          <button type="button" class="close basic-close" (click)="d(dismiss)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          
+        </div>
+        
+        <div class="modal-body"  *ngIf="isVariantsView">
+              
+                <div class="border-checkbox-section" *ngFor="let variant of variants">
+                    <h4 class="modal-title">{{variant}}</h4>
+                   <div class="col-sm-12">
+                    <div class="border-checkbox-group border-checkbox-group-primary col-sm-3" *ngFor="let variantData of variantsLists[variant]">
+                      <input class="border-checkbox" type="checkbox" id="{{variantData.variant_value_id}}" [(ngModel)]="variantData.selected">
+                      <label class="border-checkbox-label" for="{{variantData.variant_value_id}}">{{variantData.name}}</label>
+                      </div>
+                   </div> 
+                    
+                </div>
+              
+        </div>
+
+        <div class="modal-body" *ngIf="!isVariantsView">   
+            <table class="table table-styling">
+                <thead>
+                <tr class="table-primary">
+                  <th>#</th>
+                  <th>Product Name</th>
+                  <th>Sku</th>
+                  <th>Quantity</th>
+                  <th>Attributes</th>
+                  <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let selectVariants of selectedVariants; let i = index">
+                  <td scope="row">{{i + 1}}</td>
+                  <td>{{selectVariants.product_name}}</td>
+                  <td>{{selectVariants.short_code}}</td>
+                  <td><input type="text" class="form-control" name="quantity" [(ngModel)]="selectVariants.quantity" placeholder="Quantity"></td>
+                  <td>Color:{{selectVariants.color}},Size:{{selectVariants.size_short_code}}</td>
+                  <td>{{selectVariants.price}}</td>
+                </tr>
+            </tbody>
+          </table>
+
+        </div>  
+
+        <div class="modal-footer">
+          <button type="button" #modalCloseBtn class="btn btn-default ripple" (click)="c(close)">Close</button>
+          <button type="button" *ngIf="variantsDetailPageButtonChange" class="btn btn-primary ripple light" (click)="variantsArrayLists()">Save</button>
+          <button type="button" *ngIf="!variantsDetailPageButtonChange" class="btn btn-primary ripple light" (click)="saveVariants($event)">Save</button>
+        </div>
+
+      </ng-template>
+
+   </div>
+   
+   </div> 
+
+

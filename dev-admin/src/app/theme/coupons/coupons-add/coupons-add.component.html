@@ -1,0 +1,238 @@
+<!-- <div class="row" style="margin-bottom: 20px;">
+  <div class="col-md-12">
+    <a class="btn btn-info pull-right" href="{{configURL}}" download>Download Sample CSV</a>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-sm-12">
+    
+    <div class="card">
+      <div class="card-title">
+        <h5></h5>
+      </div>
+
+      <div class="card-block">
+    		<form [formGroup]="myForm" class="form-material">
+    			 <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Discount Details</label>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="Discount" placeholder="Discount Code" formControlName="discount_details">
+
+                <div class="form-control-feedback" *ngIf="myForm.controls.discount_details.errors && (myForm.controls.discount_details.dirty || couponFormSubmitted || myForm.controls.discount_details.touched )">
+                  <div class="messages text-danger" *ngIf="myForm.controls.discount_details.errors.required">Discount Details can't be blank</div>
+                  <!-- <div class="messages text-danger error" *ngIf="myForm.controls.discount_details.errors.pattern">Discount Details is not valid. Please enter only Alphabet Letters</div> -->
+                </div>
+
+              </div>
+              <div class="col-sm-5">
+                <input type="text" class="form-control" id="Title" placeholder="Title" formControlName = "title">
+                <div class="messages text-danger" *ngIf="myForm.controls.title.errors && (myForm.controls.title.dirty || couponFormSubmitted || myForm.controls.title.touched )">Discount Title can't be blank</div>
+              </div>
+           </div>
+
+           <!-- <div class="form-group row" style="text-align: center;">
+              <label class="col-sm-12 col-form-label">(or)</label><br>
+              <div class="col-md-12">
+                <input type="file" (change)="onFileChange($event)">
+              </div>
+           </div> -->
+          
+           <div class="form-group row">
+            <label class="col-sm-6 col-form-label">How many times can this discount be used?</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="used" placeholder="Discount Times used" formControlName = "discount_used">
+              <small>If 0 coupon can be used as many times as possible</small>
+            </div>
+            
+           </div>
+
+          <!-- <div class="form-group row">
+            <label class="col-sm-6 col-form-label">How many times can this discount be used by one user?</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="user" placeholder="" formControlName = "discount_used_one_user">
+            </div>
+         </div> -->
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Discount Type</label>
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="user" placeholder="Amount or percentage" formControlName = "amount_percentage">
+              <!-- <div class="messages text-danger" *ngIf="myForm.controls.amount_percentage.errors && (myForm.controls.amount_percentage.dirty || couponFormSubmitted || myForm.controls.amount_percentage.touched )">Benefit can't be blank</div> -->
+              <div class="form-control-feedback" *ngIf="myForm.controls.amount_percentage.errors && (myForm.controls.amount_percentage.dirty || couponFormSubmitted || myForm.controls.amount_percentage.touched )">
+                <div class="messages text-danger" *ngIf="myForm.controls.amount_percentage.errors.required">Benefit can't be blank</div>
+                <div class="messages text-danger" *ngIf="myForm.controls.amount_percentage.errors.pattern">Benefit is not valid. Please enter only Numbers</div>
+              </div>
+           
+            </div>
+            <div class="col-sm-5">
+              <select class="form-control" name="select" formControlName="amount_type">
+                <option value="">--Select Type--</option>
+                <option value="percentage">%</option>
+                <option value="flat">$</option>
+              </select>
+            </div>
+          </div>
+
+           <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Off for</label>
+            <div class="col-sm-5">
+              <select class="form-control" name="select" formControlName="off_for" (change)="off_for()">
+                <!-- <option value="Select an Item">Select an Item</option> -->
+                <option value="total">order total over</option>
+                <!-- <option value="shipping">shipping cost over</option>
+                <option value="products">specific products</option> -->
+              </select>
+            </div>
+
+           
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="user" placeholder="Amount" formControlName="amount">
+                    <!-- <div class="messages text-danger" *ngIf="myForm.controls.amount.errors && (myForm.controls.amount.dirty || couponFormSubmitted || myForm.controls.amount.touched )">Trigger Amount can't be blank</div>   -->
+                    <div class="form-control-feedback" *ngIf="myForm.controls.amount.errors && (myForm.controls.amount.dirty || couponFormSubmitted || myForm.controls.amount.touched )">
+                      <div class="messages text-danger" *ngIf="myForm.controls.amount.errors.required">Trigger Amount can't be blank</div>
+                      <div class="messages text-danger" *ngIf="myForm.controls.amount.errors.pattern">Trigger Amount is not valid. Please enter only Numbers</div>
+                    </div>
+                  </div>
+              
+            <!-- <div class="col-sm-5" *ngIf="dp_specific">
+                <input type="text" class="form-control" id="user" placeholder="Product" formControlName="product">
+              </div> -->
+           </div>
+
+          <!-- <div class="row">
+          <div class="col-md-6" *ngIf="dp_shipping">
+            <div class="form-group">           
+                <label class="col-sm-4 col-form-label pull-left">Shipping Methods</label>
+                <div class="col-sm-8 pull-left">
+                  <select class="form-control" name="select" formControlName="shipping_methods">
+                    <option value="Select an Item">Select an Item</option>
+                    <option value="Standard 2-6 days">Standard 2-6 days</option>
+                    <option value="Expedited 2 days">Expedited 2 days</option>
+                    <option value="Next Day Air">Next Day Air</option>
+                  </select>
+                </div>
+            </div>
+          </div>            
+        </div> -->
+
+         <div class="form-group row" *ngIf="dp_specific">
+            <label class="col-sm-3 col-form-label">Select the type of discount,and set any extra conditions</label>
+            <div class="col-sm-3">
+              <input type="text" class="form-control" id="Discount" placeholder="Trigger Quantity" formControlName="trigger_quantity">
+            </div>
+            <div class="col-sm-3">
+              <input type="text" class="form-control" id="Title" placeholder="Apply Quantity" formControlName="apply_quantity">
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="Title" placeholder="Apply Products Count" formcontrolName="apply_products_count">
+            </div>
+          </div>
+
+          <!--<div class="form-group row">
+            <label class="col-sm-5 col-form-label">Add Ons</label>
+            <div class="col-sm-5">
+                <div class="form-control" (click)="showAutocomplete=true">
+                    <li class="addr" *ngFor="let coup of Coupons; let i = index;" >
+                      <span>{{coup}}</span>
+                      <span class="remove" (click)="removeFromCoupons(i)">x</span>
+                    </li>
+            
+                    <ngui-auto-complete
+                      (valueSelected)="addToCoupons($event)"
+                      [accept-user-input]="true"
+                      [source]="autoSearch"
+                      display-property-name="formatted_address"
+                      [list-formatter]="myListFormatter"
+                      loading-text=""
+                      [loading-template]="loadingTemplate"
+                      max-num-list="5"
+                      min-chars="2"
+                      no-match-found-text="No Match Found"
+                      path-to-data="results"
+                      placeholder="Select coupon code"
+                      (keyup) = "getCouponsValue($event)"
+                    ></ngui-auto-complete>
+                  </div>
+              <!-- <input type="text" class="form-control" id="Discount" placeholder="Select coupon code,if any other documents" formcontrolName="coupon_documents">
+            </div>
+           </div>-->
+          <!-- <div class="form-group row">&nbsp;</div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Select Countries</label>
+            <div class="col-sm-3">
+              <select class="form-control" name="countries" formControlName="countries">
+                <option *ngFor="let c of countries" [value]="c.id">{{c.name}}</option>
+              </select>
+            </div>
+            <label class="col-sm-3 col-form-label">Select State</label>
+            <div class="col-sm-3">
+              <select class="form-control" name="state" formControlName="state">
+                  <option value="">--Select State--</option>
+                <option *ngFor = "let s of states" [value]="s.id">{{s.state_name}}</option>
+              </select>
+              <div class="messages text-danger" *ngIf="myForm.controls.state.errors && (myForm.controls.state.dirty || couponFormSubmitted || myForm.controls.state.touched )">State can't be blank</div>
+            </div>
+          </div> -->
+
+             <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Date Range</label>
+                <div class="col-sm-4">
+                  <input type="text" min="{{today | date:'yyyy-MM-dd'}}" class="form-control" id="Discount" type="date" placeholder="Discount Begins" formControlName="discount_begins">
+                  <div class="messages text-danger" *ngIf="myForm.controls.discount_begins.errors && (myForm.controls.discount_begins.dirty || couponFormSubmitted || myForm.controls.discount_begins.touched )">Discount Begins can't be blank</div>  
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" min="{{myForm.controls.discount_begins.value | date:'yyyy-MM-dd'}}" class="form-control" id="Discount" type="date" placeholder="Discount Expires" formControlName="discount_expires">
+                  <div class="messages text-danger" *ngIf="myForm.controls.discount_expires.errors && (myForm.controls.discount_expires.dirty || couponFormSubmitted || myForm.controls.discount_expires.touched )">Discount Expires can't be blank</div>   
+                </div>
+             </div>
+         
+    
+    			  <div class="form-group row">
+              <label class="col-sm-5"></label>
+              <div class="col-sm-5">
+                <button type="button" class="btn btn-primary m-b-0 ripple light" (click)="CouponsCreation()">Submit</button>
+              </div>
+            </div>
+    		</form>	
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<app-modal-animation [modalID]="'effect-1'" [modalClass]="'md-effect-1'">
+    <h3>Coupon CSV Upload</h3>
+    <div>
+      <div id='initial-div' *ngIf="div1" style="text-align: center;">
+        <p>Please Wait</p>
+        <p>Your Coupon CSV is uploading and this may take few minutes.</p>
+        <img src="./assets/images/loading-csv.gif" style="height: 160px;width: 200px;">
+      </div>
+      <div *ngIf="div2">
+        <h6>You may have following errors. If you continue means the following error coupons will not upload and rest of them will upload.</h6>
+          <div class="error-div">
+            <ul>
+              <li *ngFor="let e of errors">{{e}}</li>
+            </ul>
+          </div>
+      </div>
+      <div *ngIf="div3">
+        <h6>You have following error while uploading a CSV file.</h6>
+        <div class="error-div">
+          <ul><li [innerHTML]="up_error"></li></ul>
+        </div>
+      </div>
+      <div *ngIf="div4" style="text-align: center;">
+          <img src="./assets/images/success.gif" style="height: 200px;width: 270px;">
+          <h4>Success!</h4>
+          <p>Coupon has been imported successfully.</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <button (click)="closeModal()" class="btn pull-left btn-primary md-close">Close</button>
+        </div>
+      </div>
+    </div>
+    <button (click)="closeModal()" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+  </app-modal-animation>

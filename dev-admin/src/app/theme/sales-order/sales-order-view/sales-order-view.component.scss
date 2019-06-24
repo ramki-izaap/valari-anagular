@@ -1,0 +1,57 @@
+
+    .refund-nav {
+        background: none !important;
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+    }
+    .add-notes {
+        padding-left: 16px;
+    }
+    .order-info {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .order-info li {
+        padding-left: 0px;
+        text-align: center;
+    }
+    .md-content button
+    {
+        display: inline-block !important;
+    }
+    .md-close {
+        margin-left: 20px !important;
+    }
+    .notes-table p {
+    
+        padding-bottom: 10px;
+    
+    }
+    .order-info ul {
+        min-width: 100% !important;
+        width: 100% !important;
+        display: inline-block !important;
+        text-align: center !important;
+    }
+    .order-info li
+    {
+        min-width: 16.6% !important;
+    }
+    .shipping-address
+    {
+        position: relative;
+       }
+       .shipping-address .mobtn
+       {
+           position: absolute;
+           right: 0;
+           top:0;
+       }
+       .md-shipping div .md-close, .md-shipping div .ripple {
+        display: inline-block;
+    }
+    .save-change {
+        position: absolute;
+        right: 36px;
+        bottom: 28px;
+    }

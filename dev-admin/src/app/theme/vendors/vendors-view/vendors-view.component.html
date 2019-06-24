@@ -1,0 +1,103 @@
+
+<div class="row justify-content-md">
+  <div class="col-md-2">
+    <button type="button" class="btn btn-primary" (click)="back()">Back</button>
+  </div>
+</div>
+<div class="page-body"  *ngIf="vendor">
+  <div class="row">
+   
+    <!-- Left column start -->
+    <div class="col-xl-12 filter-bar">
+      <nav class="navbar navbar-light bg-faded m-b-30 p-10">
+        <ul class="nav navbar-nav vendor-sec">
+          <li class="nav-item active">
+          <b style="color:#448aff">Vendor Name: 
+            <span style="color:#e91313;">{{vendor.vendorName}}</span>
+          </b>
+          </li>
+          <li class="nav-item active vendor-url">
+            <b style="color:#448aff">Store Url: 
+              <a href="http://{{vendor.storeName}}.shopcsw.com" target="_blank"><span style="color:#e91313;">http://{{vendor.storeName}}.shopcsw.com</span></a>
+            </b>
+            </li>
+        </ul>
+      </nav>
+      <nav class="navbar navbar-light bg-faded m-b-30 p-10 order-info nav-center">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <b style="color:#448aff">Boutique Name 
+          <br/><span style="color:#e91313;">{{vendor.boutiqueName}}</span>
+        </b>
+          </li>
+          <li ngbDropdown="" class="nav-item dropdown">
+           <b style="color:#448aff">Email
+          <br/><span style="color:#e91313;">{{vendor.email}}</span>
+        </b>
+          </li>
+        
+          <li ngbDropdown class="nav-item dropdown">
+           <b style="color:#448aff">Phone Number 
+          <br/><span style="color:#e91313;">{{vendor.phoneNumber}}</span>
+        </b>
+          </li>
+          <li ngbDropdown class="nav-item dropdown">
+            <b style="color:#448aff">Status 
+           <br/>
+           <span style="color:#e91313;" *ngIf="vendor.status=='Enable'">Active</span>
+           <span style="color:#e91313;" *ngIf="vendor.status=='Disable'">Inactive</span>
+         </b>
+           </li>
+        </ul>
+      </nav>
+     
+      
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="card card-border-primary">
+            <div class="card-header">
+              <h5>Vendor Info</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ul class="list list-unstyled">
+                    <li>{{vendor.vendorName}} </li>
+                    <li>{{vendor.storeName}}</li>
+                    <li>{{vendor.email}}</li>
+                    <li>{{vendor.phoneNumber}}</li>
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <div class="card card-border-primary">
+            <div class="card-header">
+              <h5>Address Info </h5>
+             
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <ul class="list list-unstyled">
+                    <li>{{vendor.address1}} </li>
+                    <li>{{vendor.address2}}</li>
+                    <li>{{vendor.city}}</li>
+                    <li>{{vendor.state}}</li>
+                    <li>{{vendor.country}}</li>
+                    <li>{{vendor.zip}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

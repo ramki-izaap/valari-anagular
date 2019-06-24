@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-12">
+    <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+  </div>
+</div>
+<ng-container *ngIf="isProductSelectionView">
+    <div class="row m-b-20 bb-1-g" *ngIf="userRole=='A'">
+  
+        <div class="col-sm-6">
+          <!-- <div  class="f-right"> </div> -->
+          <label>Select Vendors</label>
+          <select name="select" [(ngModel)]="vendor_id" class="form-control form-control-default max-200">
+            
+              <option *ngFor="let item of vendors" [value]="item.id">{{item.first_name}}</option>
+              
+          </select>
+        </div>
+      </div>
+  <app-product-selection [orderType]="'PO'" (selectedData)="displayProducts($event)" ></app-product-selection>
+</ng-container>
+
+<ng-container *ngIf="!isProductSelectionView">
+  <div class="row" *ngIf="cartData"> 
+    <div class="col-xl-12 filter-bar custom-bar">
+        <section class="cart-back-nav">
+            <button type="button" (click)="back()" class="btn btn-primary btn-sm ripple light">Back</button>
+            <button type="button" (click)="createPO()" class="btn btn-primary btn-sm ripple light">Submit</button>
+        </section>
+      <nav class="navbar navbar-light bg-faded m-b-30 p-10 order-info">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active">
+            <b style="color:#448aff">Order Items 
+              <br/><span style="color:#e91313;">{{cartData.totalItems}}</span>
+            </b>
+          </li>
+          <li class="nav-item active">
+            <b style="color:#448aff">Order Total 
+              <br/><span style="color:#e91313;">{{cartData.cartTotal | currency}}</span>
+            </b>
+          </li>          
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="row simple-cards users-card">
+    <div class="col-md-4 col-xl-4" *ngFor="let productId of mappedProductIds">
+      <!-- {{mappedProductsById[productId].sku}} -->
+      <app-product-view [product]="mappedProductsById[productId]" [onloadCartUpdate]="'true'"></app-product-view>
+    </div>
+  </div>
+
+
+  <div class="row justify-content-center">
+    <div class="col-md-2">
+      <button type="button" (click)="createPO()" class="btn btn-primary btn-sm ripple light">Submit</button>
+     
+    </div>
+  </div>
+</ng-container>
+
+  

@@ -1,0 +1,25 @@
+<!-- <p>
+  variants-list works!
+</p> -->
+<div class="row">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+        <a [routerLink]="['/variants/add/']" class="btn pull-left btn-primary">
+          <i class="icofont icofont-plus"></i> Add Variant
+        </a>
+    </div>
+  </div>
+  <div class="row">&nbsp;</div>
+<app-card [title]="">    
+  <app-iz-table [izTableData]="izTable" [columns]="columns" [rows]="rows" (listChange)="loadPage()" (doBulkAction)="doBulkAction()"></app-iz-table> 
+</app-card>
+
+
+<ng-template #roleTemplate let-value="value" ngx-datatable-cell-template>
+  <strong>{{value}}</strong>
+</ng-template>
+
+<ng-template #actionTemplate let-row="row" let-value="value" ngx-datatable-cell-template>
+  <i class="fa fa-times-circle custom-btn" style="color:#FF0000;" (click)="delete(value)"></i>
+</ng-template>
+

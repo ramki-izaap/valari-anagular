@@ -1,0 +1,39 @@
+<div class="panel panel-primary">
+    <div class="row panel-heading">
+      <h4 class="col-md-10 pull-left">Notes</h4>
+      <button class="btn btn-success pull-right" (click)="showModal()">Add Notes</button>
+    </div>
+    <div class="panel-body add-notes">
+        <div class="col-md-12" style="padding-right: 30px">
+            <table class="table table-hover notes-table">
+                <tbody>
+                    <tr *ngFor="let n of notes">
+                        <p>{{n.created_time}}</p>
+                        <p>{{n.notes}}</p>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<app-modal-animation [modalID]="'effect-1'" [modalClass]="'md-effect-1'">
+    <h3>Add Note</h3>
+    <form>
+        <div class="row" style="margin:0;">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <textarea class="form-control" name="description" [(ngModel)]="description"></textarea>
+                    <p style="color: #d8456e;" class="error-div" *ngIf="errnote">Please Enter Description</p>
+                </div>
+            </div>                  
+        </div>
+        <div class="row" style="margin:0;padding-bottom: 20px;">
+            <div class="col-md-4 pull-right">
+                <button (click)="close('effect-1')" class="btn pull-left btn-danger">Close</button>
+                <button class="btn btn-primary pull-right" (click)="addNote()">Save</button>
+            </div>
+        </div>
+    </form>
+</app-modal-animation>

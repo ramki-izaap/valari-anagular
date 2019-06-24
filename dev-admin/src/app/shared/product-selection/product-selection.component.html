@@ -1,0 +1,64 @@
+
+
+<!-- <div class="row m-b-20 bb-1-g">
+  
+  <div class="col-sm-6">
+   
+    <label>Vendors</label>
+    <select name="select" class="form-control form-control-default max-200">
+      
+        <option *ngFor="let item of vendors" [value]="item.id">{{item.first_name}}</option>
+        
+    </select>
+  </div>
+</div> -->
+
+
+<div class="row">
+    
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Choose Products to Purchase</h5>
+          <button type="submit" class="btn btn-primary float-right" (click)="send()">Next</button>
+        </div>
+        <div class="card-block">
+          <!--  -->
+          <div class="row simple-cards users-card">
+              <div class="col-md-4 col-xl-4" *ngFor="let category of categories">
+                <div class="card user-card card-single">
+                    <div class="checkbox-fade fade-in-primary d- select-all-parent">
+                      <label>
+                        <span class="text-inverse">All {{category.name}}</span>
+                        <input type="checkbox" [(ngModel)]="category.selected" (change)="selectAll(category);">
+                        <span class="cr"><i class="cr-icon fa fa-check txt-primary"></i></span>
+                        
+                      </label>
+                    </div>
+            
+                    <div class="checkbox-fade fade-in-primary d-" *ngFor="let product of category.products">
+                      <label>
+                        <span class="text-inverse">{{product.sku}}</span>
+                        <input type="checkbox" [(ngModel)]="product.selected" (change)="checkIfAllSelected(category);">
+                        <span class="cr"><i class="cr-icon fa fa-check txt-primary"></i></span>
+                      </label>
+                    </div>
+                </div>        
+              </div>
+          
+            </div>
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <div class="row">
+    <div class="form-actions">
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary" (click)="send()">Next</button>
+      </div>
+    </div>
+  </div>

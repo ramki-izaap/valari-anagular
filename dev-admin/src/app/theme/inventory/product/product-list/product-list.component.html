@@ -1,0 +1,35 @@
+
+<div class="row m-b-20">
+  <div class="col-sm-12">
+    <div  class="f-right">
+      <button class="btn btn-primary btn-sm ripple light" type="button" (click)="pushToCreateProduct()">Add Product</button>               
+    </div>
+  </div>
+</div>
+
+<app-card [title]="" class="card-bg">    
+  <app-iz-table [izTableData]="izTable" [columns]="columns" [rows]="rows" (listChange)="loadPage()" (doBulkAction)="doBulkAction()"></app-iz-table> 
+</app-card>
+
+<ng-template #roleTemplate let-value="value" ngx-datatable-cell-template>
+  <strong>{{value}}</strong>
+</ng-template>
+
+<ng-template #priceTemplate let-value="value" ngx-datatable-cell-template>
+  <strong>{{value | currency}}</strong>
+</ng-template>
+
+<ng-template #statusTemplate let-value="value" ngx-datatable-cell-template>
+  <label *ngIf="value==1" class="label label-success">Active</label>
+  <label *ngIf="value==0" class="label label-danger">Inactive</label>
+</ng-template>
+
+<ng-template #actionTemplate let-row="row" let-value="value" ngx-datatable-cell-template>
+  
+	<i class="fa fa-pencil custom-btn" (click)="edit(value)"></i>
+  <!-- <i class="fa fa-ban custom-btn" (click)="delete(value)"></i> -->
+  <i *ngIf="row.is_active==0" class="fa fa-check-circle custom-btn" style="color:#008000;" (click)="enableProduct(value)"></i>
+  <i *ngIf="row.is_active==1" class="fa fa-times-circle custom-btn" style="color:#FF0000;" (click)="disableProduct(value)"></i>
+	
+</ng-template>
+

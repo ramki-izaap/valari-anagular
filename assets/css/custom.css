@@ -1,0 +1,187 @@
+
+ 
+#shopify-product-reviews h2{
+  font-size:14px;
+}
+
+#size_chart_container{
+ 	display:none; 
+ position:relative;
+  z-index:10000;
+  padding-top:15px;
+ 
+  
+}
+
+#size_chart_container img{
+  height:350px;
+  border:10px solid;
+}
+
+#size_chart_text{
+ 	order: 1px solid;
+    cursor: pointer;
+    padding: 8px;
+    _width: -moz-max-content;
+  width:80px;
+  border:1px solid;
+  margin-left:30px;
+}
+
+#Video_player_button{
+  cursor: pointer;
+}
+
+#videoPlayer{
+ 	display:none; 
+  left: 19px;
+    position: absolute;
+    top: 51px;
+}
+
+#recently-viewed-products h4, #looked-at h4{
+ 	text-transform:uppercase; 
+}
+
+.add:active{
+  background:#aaaaaa !important;
+}
+
+
+.homepage-video-slideshow{
+ 	margin-bottom:0px !important; 
+}
+
+
+.additional-checkout-button{border:0 !important;border-radius:5px !important;display:inline-block;margin:0 0 10px;padding:0 24px !important;max-width:100%;min-width:150px !important;line-height:44px !important;text-align:center !important}.additional-checkout-button+.additional-checkout-button{margin-left:10px}.additional-checkout-button:last-child{margin-bottom:0}.additional-checkout-button span{font-size:14px !important}.additional-checkout-button img{display:inline-block !important;height:1.3em !important;margin:0 !important;vertical-align:middle !important;width:auto !important}@media (max-width: 500px){.additional-checkout-button{display:block;margin-left:0 !important;padding:0 10px !important;width:100%}}.additional-checkout-button--apple-pay{background-color:#000 !important;color:#fff !important;display:none;font-family:-apple-system, &#39;Helvetica Neue&#39;, sans-serif !important;min-width:150px !important;white-space:nowrap !important}.additional-checkout-button--apple-pay:hover,.additional-checkout-button--apple-pay:active,.additional-checkout-button--apple-pay:visited{color:#fff !important;text-decoration:none !important}.additional-checkout-button--apple-pay .additional-checkout-button__logo{background:-webkit-named-image(apple-pay-logo-white) center center no-repeat !important;background-size:auto 100% !important;display:inline-block !important;vertical-align:middle !important;width:3em !important;height:1.3em !important}@media (max-width: 500px){.additional-checkout-button--apple-pay{display:none}}.additional-checkout-button--google-pay{line-height:0 !important;padding:0 !important;border-radius:unset !important;width:80px !important}@media (max-width: 500px){.additional-checkout-button--google-pay{width:100% !important}}.gpay-iframe{height:44px !important;width:100%  !important;cursor:pointer;vertical-align:middle !important}.additional-checkout-button--paypal-express{background-color:#ffc439 !important}.additional-checkout-button--paypal{vertical-align:top;line-height:0 !important;padding:0 !important}.additional-checkout-button--amazon{background-color:#fad676 !important;position:relative !important}.additional-checkout-button--amazon .additional-checkout-button__logo{-webkit-transform:translateY(4px) !important;transform:translateY(4px) !important}.additional-checkout-button--amazon .alt-payment-list-amazon-button-image{max-height:none !important;opacity:0 !important;position:absolute !important;top:0 !important;left:0 !important;width:100% !important;height:100% !important}.additional-checkout-button-visually-hidden{border:0 !important;clip:rect(0, 0, 0, 0) !important;clip:rect(0 0 0 0) !important;width:1px !important;height:1px !important;margin:-2px !important;overflow:hidden !important;padding:0 !important;position:absolute !important}
+
+.shopify-payment-button__button--hidden {
+  visibility: hidden;
+}
+
+.shopify-payment-button__button {
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 0 0 transparent;
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  width: 100%;
+  transition: background 0.2s ease-in-out;
+}
+
+.shopify-payment-button__button[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.shopify-payment-button__button--unbranded {
+  background-color: #1990c6;
+  padding: 1em 2em;
+}
+
+.shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  background-color: #136f99;
+}
+
+.shopify-payment-button__more-options {
+  background: transparent;
+  border: 0 none;
+  cursor: pointer;
+  display: block;
+  font-size: 1em;
+  margin-top: 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.shopify-payment-button__more-options:hover:not([disabled]) {
+  text-decoration: underline;
+}
+
+.shopify-payment-button__more-options[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.shopify-payment-button__button--branded {
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  position: relative;
+  z-index: 1;
+}
+
+.shopify-payment-button__button--branded .shopify-cleanslate {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+ #lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+#modal{
+  background-color: white;
+    display: block;
+    opacity: 1;
+    padding: 10px;
+    position: fixed;
+    top: 100px;
+    width: 660px;
+    z-index: 11000;
+}
+
+
+
+
+
+
+
+
+@media screen and (max-width:499px){
+  
+.product-info {
+	margin-left: -5%;
+}
+  
+  
+  .shoppingCartIcn{
+    height:16px;
+  }
+
+  
+  
+}
+
+
+@media screen and (max-width:899px){
+ 
+  
+.quickview_button{
+ 	display:none; 
+}
+ 
+  
+}
+
+.coupon_err_msg{color: #ff6d6d;font-weight: 700;}
+.coupon_success_msg
+{
+  font-weight: bold;
+  width: 200px;
+  margin-bottom: 20px;
+}
+.coupon_success_msg a{float: right;font-size: 16px;}

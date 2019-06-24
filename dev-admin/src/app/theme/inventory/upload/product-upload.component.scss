@@ -1,0 +1,30 @@
+app-product-upload
+{
+	.error-div
+	{
+		background: #ffc1c1;
+		margin-bottom: 20px;
+		border-radius: 5px;
+		color: #ff1515;
+		border-color: #ff8585;
+		max-height: 330px;
+		overflow: auto;
+		padding: 6px 0px 6px 25px;
+	}
+	.error-div ul
+	{
+		list-style: initial;
+	}
+	.error-div ul li
+	{
+		font-size: 12px;
+	}
+	.error
+	{
+		color:red;
+	}
+
+	
+}
+
+.btnsec{justify-content: flex-end;}

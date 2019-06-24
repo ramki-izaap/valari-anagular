@@ -1,0 +1,25 @@
+.modal-body.status-cont, .modal-body.status-cont p {
+    font-size: 16px;
+}
+
+.statusbg-success .modal-header,.statusbg-success .modal-footer{border-bottom: 1px solid #c3e6cb; border-top: 1px solid #c3e6cb;}
+.statusbg-danger .modal-header,.statusbg-danger .modal-footer{border-bottom: 1px solid #f5c6cb;border-top: 1px solid #f5c6cb;}
+.statusbg-warning .modal-header,.statusbg-warning .modal-footer{border-bottom: 1px solid #ffeeba;border-top: 1px solid #ffeeba;}
+
+.statusbg-success {
+    color: #155724;
+    background: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.statusbg-danger {
+    color: #721c24;
+    background-color: #f8d7da;  
+    border-color: #f5c6cb;
+}
+
+.statusbg-warning {
+    color: #856404;
+background-color: #fff3cd;
+border-color: #ffeeba;
+}

@@ -1,0 +1,446 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="md-tabs md-card-tabs">
+            <ngb-tabset>
+              <ngb-tab title="GENERAL">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <!-- personal card start -->
+                    <div class="card">                      
+                      <div class="card-body">
+                        <form [formGroup]="productEditForm" (ngSubmit)="productCreation()" >
+                          <!--<div class="form-group row radio">
+                            <label class="col-sm-2 col-form-label">Product Type</label>
+                            <div class="col-sm-10">
+                              <select  name="product_type" class="form-control" formControlName="product_type" disabled>
+                                <!-- <option value="simple">Simple</option>
+                                <option value="configurable" [selected]="productEditForm.product_type=='configurable'" >Configurable</option>
+                              </select>
+                              <div class="messages text-danger" *ngIf="productEditForm.controls.product_type.errors && (productEditForm.controls.product_type.dirty || productEditForm.controls.product_type.touched )">Please Select Product Type</div>
+                            </div>
+                          </div>-->
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                              <input type="text" style="text-align: left;" class="form-control" id="name" placeholder="Product Name" formControlName="name">
+                              <div class="messages text-danger" *ngIf="productEditForm.controls.name.errors && (productEditForm.controls.name.dirty || productEditForm.controls.name.touched )">Name can't be blank</div>
+                            </div>
+                          </div>                      
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Sku</label>
+                            <div class="col-sm-10">
+                              <input type="text" style="text-align: left;" class="form-control" id="sku"  placeholder="Sku" formControlName="sku">
+                              <div class="messages text-danger error" *ngIf="productEditForm.controls.sku.errors && (productEditForm.controls.sku.dirty || productEditForm.controls.sku.touched )">Sku can't be blank</div>
+                              <div *ngIf="productEditForm.controls.sku.errors">
+                                  Sku must be at least 50 characters long.
+                                </div>
+                            </div>
+                          </div>                      
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10 custom-editor">
+                              <!-- <textarea [froalaEditor] class="form-control" id="description" placeholder="Description" formControlName="description"></textarea> -->
+                              <app-ngx-editor [placeholder]="'Description...'" [spellcheck]="true" [(ngModel)]="htmlContent"  id="description" placeholder="Description" formControlName="description"></app-ngx-editor>
+                              <div class="messages text-danger error" *ngIf="productEditForm.controls.description.errors && (productEditForm.controls.description.dirty || productEditForm.controls.description.touched )">Description can't be blank</div>
+                            </div>
+                          </div>                      
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Price</label>
+                            <div class="col-sm-10">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">$</span>
+                                    </div>
+                                    <input type="text" style="text-align: left;" class="form-control" id="price" name="price" placeholder="Price" formControlName="price">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text"></span>
+                                    </div>
+                                  </div>
+                              <div class="messages text-danger" *ngIf="productEditForm.controls.price.errors && (productEditForm.controls.price.dirty || productEditForm.controls.price.touched )">Price can't be blank</div>
+                            </div>
+                          </div>                      
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Quantity</label>
+                            <div class="col-sm-10">
+                              <input type="text" style="text-align: left;" class="form-control" name="quantity" placeholder="Quantity" formControlName="quantity">
+                              <div class="messages text-danger" *ngIf="productEditForm.controls.quantity.errors && (productEditForm.controls.quantity.dirty || productEditForm.controls.quantity.touched )">Quantity can't be blank</div>
+                            </div>
+                          </div>  
+                          
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Material Content</label>
+                            <div class="col-sm-10">
+                              <textarea class="form-control" style="text-align: left;" placeholder="Material Content" formControlName="materialContent"></textarea>
+                            </div>
+                          </div>
+                
+                          <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Care Instructions</label>
+                            <div class="col-sm-10">
+                              <textarea class="form-control" style="text-align: left;" placeholder="Care Instructions" formControlName="careInstructions"></textarea>
+                            </div>
+                          </div>   
+
+                          <div class="form-group row radio">
+                            <label class="col-sm-2 col-form-label">Is Active</label>
+                            <div class="col-sm-10">
+                                <label class="center-block">
+                                  <input type="radio" class="form-control" formControlName="isActive" value="1">
+                                  Yes
+                                </label> 
+                                <label class="center-block"> 
+                                  <input type="radio" class="form-control" formControlName="isActive" value="0">
+                                No 
+                                </label> 
+                              <div class="messages text-danger" *ngIf="productEditForm.controls.isActive.errors && (productEditForm.controls.isActive.dirty || productEditForm.controls.isActive.touched )">Select isActive option </div>
+                            </div>
+                          </div>  
+                          
+                          
+                          <div class="form-group row radio">
+                              <label class="col-sm-2 col-form-label">Made in USA</label>
+                              <div class="col-sm-10">
+                                  <label class="center-block">
+                                   <input type="radio" class="form-control" formControlName="madeInusa" value="Y">
+                                   Yes
+                                  </label> 
+                                  <label class="center-block"> 
+                                    <input type="radio" class="form-control" formControlName="madeInusa" value="N">
+                                  No 
+                                  </label> 
+                              
+                              </div>
+                            </div>
+                  
+                            <div class="form-group row radio">
+                              <label class="col-sm-2 col-form-label">Wrinkle Free Knit</label>
+                              <div class="col-sm-10">
+                                  <label class="center-block">
+                                   <input type="radio" class="form-control" formControlName="wrinkleFreeknit" value="Y">
+                                   Yes
+                                  </label> 
+                                  <label class="center-block"> 
+                                    <input type="radio" class="form-control" formControlName="wrinkleFreeknit" value="N">
+                                  No 
+                                  </label> 
+                              
+                              </div>
+                            </div>
+                  
+                            <div class="form-group row radio">
+                              <label class="col-sm-2 col-form-label">Regular Fit</label>
+                              <div class="col-sm-10">
+                                  <label class="center-block">
+                                   <input type="radio" class="form-control" formControlName="regularFit" value="Y">
+                                   Yes
+                                  </label> 
+                                  <label class="center-block"> 
+                                    <input type="radio" class="form-control" formControlName="regularFit" value="N">
+                                  No 
+                                  </label> 
+                              
+                              </div>
+                            </div>
+                  
+                            <div class="form-group row radio">
+                              <label class="col-sm-2 col-form-label">Slim Fit</label>
+                              <div class="col-sm-10">
+                                  <label class="center-block">
+                                   <input type="radio" class="form-control" formControlName="slimFit" value="Y">
+                                   Yes
+                                  </label> 
+                                  <label class="center-block"> 
+                                    <input type="radio" class="form-control" formControlName="slimFit" value="N">
+                                  No 
+                                  </label> 
+                              
+                              </div>
+                            </div>
+                  
+                            <div class="form-group row radio">
+                              <label class="col-sm-2 col-form-label">Loose Fit</label>
+                              <div class="col-sm-10">
+                                  <label class="center-block">
+                                   <input type="radio" class="form-control" formControlName="looseFit" value="Y">
+                                   Yes
+                                  </label> 
+                                  <label class="center-block"> 
+                                    <input type="radio" class="form-control" formControlName="looseFit" value="N">
+                                  No 
+                                  </label> 
+                              
+                              </div>
+                            </div>
+                          <div class="form-group row">
+                            <label class="col-sm-2"></label>
+                            <div class="col-sm-10">
+                              <button type="submit" class="btn btn-primary m-b-0 ripple light">Save</button>
+                            </div>
+                          </div>                        
+                        </form> 
+                        <!-- end of edit-info -->
+                      </div>
+                      <!-- end of card-body -->
+                    </div>                
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="CATEGORIES" (click)="getCategories(productID)">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">                    
+                    <div class="card">
+                      <div class="card-body">                        
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-12">                                                      
+                              <div class="auth-box card">
+                                <div class="card-block row">
+                                  <div class="input-group col-sm-3" *ngFor="let category of categories">
+                                    <div class="bsorder-checkbox-section"> 
+                                      <div class="checkbox-fade fade-in-primary d-">
+                                        <label>
+                                          <input class="border-checkbox" type="checkbox" [(ngModel)]="category.selected" aria-label="Checkbox for following text input" value="category.id">
+                                          <span class="cr"><i class="cr-icon fa fa-check txt-primary"></i></span>
+                                          <span class="text-inverse">{{category.name}}</span>
+                                        </label>
+                                      </div>
+                                      <!--<div class="">
+                                        <input class="border-checkbox" type="checkbox" [(ngModel)]="category.selected" aria-label="Checkbox for following text input" value="category.id">
+                                         <!-- <input type="checkbox" [(ngModel)]="category.selected" aria-label="Checkbox for following text input" value="category.id" > 
+                                        <label class="border-checkbox-label" for="category.id">{{category.name}}</label>
+                                      </div>-->
+                                     </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-2"></label>
+                                    <div class="col-sm-10">
+                                      <button type="button" class="btn btn-primary m-b-0 ripple light" (click)="updateCategory();">Save</button>
+                                    </div>
+                                  </div>                                      
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                    
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="VARIANTS">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <div class="card card-border-primary">
+                      <div class="card-header">
+                        <h5>Product Variants</h5>
+                        <button type="button" class="btn btn-primary ripple pull-right" (click)="openModal(variantModal)">Add New Variant</button>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">&nbsp;</div>
+                        <div class="row">
+                          <div *ngIf="showLoading" class="alert border-info alert-info">
+                            Please Wait...
+                          </div>
+                          <div *ngIf="alertMsg!=''" class="alert border-success alert-success alert-dismissible">
+                            <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                            {{alertMsg}}
+                          </div>
+                        </div>
+                        <ngx-datatable
+                        #mydatatable
+                        class="material data-table"
+                        [headerHeight]="50"
+                        [limit]="200"
+                        [columnMode]="'force'"
+                        [footerHeight]="50"
+                        [rowHeight]="'auto'"
+                        [rows]="rows">
+                          <ngx-datatable-column name="PRODUCT VARIANT NAME" >
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                              <span>
+                                {{value}}
+                              </span>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column name="SKU">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                              <span>
+                                {{value}}
+                              </span>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column name="QUANTITY" >
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value" >
+                                <span (dblclick)="editing[rowIndex + '-quantity'] = true"
+                                  *ngIf="!editing[rowIndex + '-quantity']" class="variants_quantity" title="Double click to edit" style="width:80px;">
+                                {{value}}
+                              </span>
+                              <input
+                              autofocus
+                              (blur)="updateProductVariantsValue($event, 'quantity', rowIndex)"
+                              *ngIf="editing[rowIndex+ '-quantity']"
+                              type="text"
+                              [value]="value"
+                              class="form-control"/>
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column name="PRICE" >
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                                <span (dblclick)="editing[rowIndex + '-price'] = true" *ngIf="!editing[rowIndex + '-price']" class="variants_price" title="Double click to edit" style="width:80px;">
+                                {{value}}
+                              </span>
+                              <input
+                              autofocus
+                              (blur)="updateProductVariantsValue($event, 'price', rowIndex)"
+                              *ngIf="editing[rowIndex+ '-price']"
+                              type="text"
+                              [value]="value"
+                              class="form-control"
+                            />
+                            </ng-template>
+                          </ngx-datatable-column>
+                          <ngx-datatable-column name="FEATURED">
+                            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                              <span>
+              
+                                <i (click)="setFavVariant(rows[rowIndex].sku)" title="Set as Favourite"
+                                 alt="Set as Favourite" 
+                                 class="btn-fav fa {{rows[rowIndex].featured==1?'fa-heart':'fa-heart-o'}}"></i>
+                              </span>
+                            </ng-template>
+                          </ngx-datatable-column>
+                        </ngx-datatable>
+                        <ng-template #variantModal let-c="close" let-d="dismiss">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Add New Variant</h4>
+                            <button type="button" class="close basic-close" (click)="d(dismiss)">
+                              <span aria-hidden="true">&times;</span>
+                            </button>                              
+                          </div>                              
+                          <div class="modal-body">
+                            <form [formGroup]="addVariantForm" (ngSubmit)="addVariant()" >
+
+                              <label class="col-sm-2 col-form-label">Color</label>
+                              <select name="color" class="form-control" formControlName="color" >
+                                <option [value]="i" *ngFor="let color of variantsLists.color; let i = index">{{color.name}}</option>
+                              </select> 
+                              <div class="messages text-danger" *ngIf="addVariantForm.controls.color.errors && (addVariantForm.controls.color.dirty || addVariantForm.controls.color.touched || variantsFormSubmit)">Color can't be blank</div>                           
+
+                              <label class="col-sm-2 col-form-label">Size</label>
+                              <select  name="size" class="form-control" formControlName="size" >
+                                <option [value]="i" *ngFor="let size of variantsLists.size; let i = index">{{size.name}}</option>
+                              </select>  
+                              <div class="messages text-danger" *ngIf="addVariantForm.controls.size.errors && (addVariantForm.controls.size.dirty || addVariantForm.controls.size.touched || variantsFormSubmit)">Size can't be blank</div>
+
+                              <label class="col-sm-2 col-form-label">Quantity</label>
+                              <input type="text" name="quantity" class="form-control" formControlName="quantity" >                                
+                              <div class="messages text-danger" *ngIf="addVariantForm.controls.quantity.errors && (addVariantForm.controls.quantity.dirty || addVariantForm.controls.quantity.touched || variantsFormSubmit)">Quantity can't be blank</div>
+                              <div class="modal-footer">
+                                <button type="button" id="modalCloseBtn" #modalCloseBtn class="btn btn-default ripple" (click)="c(close)">Close</button>
+                                <button type="submit" class="btn btn-primary ripple light" >Save</button>
+                              </div>
+                            </form>
+                          </div>                            
+                        </ng-template>
+                      </div>
+                    </div>                      
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="VENDOR"  (click)="getVendorsByProduct(productID)">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <ngx-datatable class="material data-table" [headerHeight]="50" [limit]="10" [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [rows]="vendors">
+                                <ngx-datatable-column name="NAME" >
+                                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                    <span>
+                                      {{value}}
+                                    </span>                                      
+                                  </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="STORE NAME" >
+                                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                    <span>
+                                      {{value}}
+                                    </span>                                      
+                                  </ng-template>
+                                </ngx-datatable-column>
+                                <ngx-datatable-column name="EMAIL" >
+                                  <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+                                    <span>
+                                      {{value}}
+                                    </span>                                      
+                                  </ng-template>
+                                </ngx-datatable-column>
+                              </ngx-datatable>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                    
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="IMAGES">
+                <ng-template ngbTabContent>
+                  <div [@fadeInOutTranslate] class="m-t-15">
+                    <div class="card">                       
+                      <div class="card-body">                          
+                        <div class="card-body">
+                          <div class="row">
+                            <div *ngIf="showLoading" class="alert border-info alert-info">
+                                Please Wait...
+                              </div>
+                            <div *ngIf="alertMsg!=''" class="alert border-success alert-success alert-dismissible">
+                              <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                              {{alertMsg}}
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="col-md-6">
+                                <label class="col-md-4 pull-left">Choose Color: </label>
+                                <div class="col-md-6 pull-left">
+                                  <select [(ngModel)]="variation" class="form-control">
+                                    <option *ngFor="let c of colors" [value]="c.value">{{c.value}}</option>
+                                    <option value="Video">Video</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <input #myFile type="file" [(ngModel)]="fileName" (change)="onFileChange($event)">
+                              <button class="btn btn-primary" (click)="doUpload()" >Upload</button>
+                            </div>
+                            <div *ngIf="productImages" class="col-sm-12">
+                              <div *ngFor="let img of productImages" class="product-img col-md-2">
+                                <div class="overlay"></div>
+                                <img *ngIf="img.type=='I'" src="https://s3.amazonaws.com/inventory-clara/product-images/{{img.product_id}}/{{img.file_name}}">
+                                <video autoplay loop *ngIf="img.type=='V'" src="https://s3.amazonaws.com/inventory-clara/product-images/{{img.product_id}}/{{img.file_name}}"></video>
+                                <span style="margin-left: 30px;"><b>{{img.file_name}}</b></span>
+                                <div class="product-options">
+                                  <button class="btn del bt-xs btn-danger" (click)="deleteImg(img.id,img.product_id,img.file_name)">
+                                    <i class="fa fa-trash"></i>
+                                  </button>
+                                </div>
+                              </div>     
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>                     
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>  

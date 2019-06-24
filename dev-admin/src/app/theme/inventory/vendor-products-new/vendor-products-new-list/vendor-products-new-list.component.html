@@ -1,0 +1,54 @@
+<div class="filter-section">
+    <div class="card">
+      <div class="card-block">
+          <ngb-alert *ngIf="errorMessage" type="danger" (close)="errorMessage = null">{{ errorMessage }}</ngb-alert>
+          <form [formGroup]="myForm" (ngSubmit)="SearchProduct()" class="form-material">
+          <div class="row">
+              <div class="col-sm-5">
+                  <select class="form-control" name="select" formControlName="category_id" (change)="SearchProduct()">
+                      <option [value]="0">-- All Products --</option>
+                      <option [value]="category.id"  *ngFor="let category of allcategories">{{category.name}}</option>
+                    </select>
+                    <div class="messages text-danger" *ngIf="categoryerror">Please select category</div>
+              </div>
+              <div class="col-sm-5">
+                  <input type="text" class="form-control" placeholder="Sku" formControlName="search_key" >
+              </div>
+              <!-- <div class="col-sm-2">
+                  <button type="submit" class="btn btn-primary btn-block m-b-0 ripple light">Search</button>
+              </div> -->
+            </div>
+          </form>
+      </div>
+    </div>  
+  </div>  
+  
+  <!-- filter section -->
+
+  <ng-container *ngIf="!isProductSelectionView">
+      <div class="row simple-cards users-card">
+        <div class="col-md-4 col-xl-4" *ngFor="let productId of mappedProductIds">
+          <!-- {{mappedProductsById[productId].sku}} -->
+          <app-product-view [product]="mappedProductsById[productId]" [poItems]="mappedPoItems" [onloadCartUpdate]="'false'"></app-product-view>
+        </div>
+        <p *ngIf="isNoProductFound">
+           No Products Found
+        </p>
+      </div>
+  
+  
+      <div class="row justify-content-center">
+        <div class="vendor-product-submit">
+          <button type="button" (click)="createVendorProducts()" class="btn btn-primary btn-block ripple light">Submit</button>
+        </div>
+      </div>
+  </ng-container>
+  
+  
+  <div class="custom-preloader" *ngIf="showloader">
+      <div class="cell preloader5 ">
+        <div class="circle-5 l"></div>
+        <div class="circle-5 m"></div>
+        <div class="circle-5 r"></div>
+      </div>
+    </div>  

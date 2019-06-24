@@ -1,0 +1,109 @@
+<div class="row">
+  <div class='col-sm-3'>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+              <input type="checkbox" (change)="selectAll($event)" [(ngModel)]="izTable.selectedItems.all" aria-label="Checkbox for following text input">
+          </span>
+        </div>
+        <select class="form-control" [(ngModel)]="izTable.bulkAction.selected">
+          <option *ngFor="let bulkAction of izTable.bulkAction.actions" value= {{bulkAction.key}}>
+              {{bulkAction.label}}
+          </option> 
+        </select>
+        <div class="input-group-append">
+          <span class="input-group-text" (click)="bulkAction()">GO</span>
+        </div>
+      </div>
+  </div>
+  <div class='col-sm-7'>
+      <div class="input-group mb-3" *ngIf="izTable.simpleSearch">
+        <div class="input-group-prepend">            
+              <select class="form-control" [(ngModel)]="izTable.simpleSearch.selected">
+                <option *ngFor="let seachKey of izTable.simpleSearch.keys" value= {{seachKey.key}}>
+                    {{seachKey.label}}
+                </option>
+              </select>            
+        </div>
+        <input type="text" class="form-control" [(ngModel)]="izTable.simpleSearch.value">                  
+        <div class="input-group-append" (click)="simpleSearch()">
+          <span class="input-group-text">GO</span>
+        </div>
+        
+      </div>
+
+      <small class="filter-clear" (click)="clearSimpleSearch()">Clear Filter</small>
+  </div>
+  <!-- <div class='col-sm-3'>
+    <div class="input-group mb-3">
+      <button class="btn btn-primary btn-block ripple light">Advanced Search</button>
+    </div>
+    <small class="filter-clear">Clear Filter</small>
+  </div> -->
+  <div class='col-sm-2'>
+    <div class="input-group mb-3">      
+      <select class="form-control" [(ngModel)]="izTable.perPage" (change)="changePageLimit()">
+        <option *ngFor="let pageLimit of izTable.pageLimits" value= {{pageLimit}}>
+            {{pageLimit}}
+        </option>
+      </select>      
+    </div>
+    <small class="filter-clear">per page</small> 
+  </div>
+</div>
+
+<div class="row">
+  <div class='col-sm-6 mb-3'>
+    <span class="display-text">{{getDisplayText()}}</span>
+  </div>
+  <div class='col-sm-6 mb-3' *ngIf="izTable.itemsCount>izTable.perPage">
+    <ngb-pagination class="pull-right" [collectionSize]="izTable.itemsCount" [pageSize]="izTable.perPage" [page]="izTable.currentPage" [maxSize]="izTable.perPage" (pageChange)="callLoadPage($event)" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+  </div>
+</div>
+<div class="row" [hidden]="true">
+    <div class='col-sm-6 mb-3'>
+        <h4>Available Columns {{allColumns.length}}</h4>
+        <ul>
+          <li *ngFor='let col of allColumns'>
+            <input
+              type='checkbox'
+              [id]="col.name"
+              (click)='toggle(col)'
+              [checked]='col.show'
+            />
+            <label [attr.for]="col.name">{{col.name}}</label>
+          </li>
+        </ul>
+    </div>
+</div>
+
+<ngx-datatable #tbl 
+    class="data-table dt-chk "
+    [rows]="rows"
+    [columns]="columnsFiltered" 
+    [message]= "'No data found.'"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [externalPaging]="true"
+    [count]="izTable.itemsCount"
+    [offset]="izTable.currentPage"
+    [limit]="izTable.perPage"
+    [selected]="izTable.selectedItems.items"
+    [selectionType]="'checkbox'"
+    [selectAllRowsOnPage]="true"
+    (activate)="onActivate($event)"
+    (select)='onSelect($event)'
+    (sort)='onSort($event)'>
+</ngx-datatable>
+
+<!--{{izTable.selectedItems.items | json}} -->
+
+
+    
+
+
+    
+
+

@@ -1,0 +1,234 @@
+<div class="page-body">
+  
+  <div class="row">
+    <!-- sales start -->
+    <!-- <div class="col-md-12">
+      <div class="card">
+        <div class="card-block text-center">
+          <div class="row">
+            <div class="col-xl-3 col-md-6 m-t-10 m-b-10">
+              <h6>Daily Sales</h6>
+              <div class="row justify-content-center">
+                <div class="col-8">
+                  <chart id="sale-report-1" [type]="'bar'" [data]="saleReport1Data" [options]="saleReportOption"></chart>
+                </div>
+              </div>
+              <h5><i class="fa fa-caret-up text-c-green m-r-10"></i>{{dtotal | currency}}</h5>
+            </div>
+            <div class="col-xl-3 col-md-6 m-t-10 m-b-10">
+              <h6>Weekly Sales</h6>
+              <div class="row justify-content-center">
+                <div class="col-8">
+                  <chart id="sale-report-2" [type]="'bar'" [data]="saleReport2Data" [options]="saleReportOption"></chart>
+                </div>
+              </div>
+              <h5><i class="fa fa-caret-down text-c-red m-r-10"></i>{{weektotal | currency}}</h5>
+            </div>
+            <div class="col-xl-3 col-md-6 m-t-10 m-b-10">
+              <h6>Monthly Sales</h6>
+              <div class="row justify-content-center">
+                <div class="col-8">
+                  <chart id="sale-report-3" [type]="'bar'" [data]="saleReport3Data" [options]="saleReportOption"></chart>
+                </div>
+              </div>
+              <h5><i class="fa fa-caret-up text-c-green m-r-10"></i>{{ monthtotal | currency}}</h5>
+            </div>
+            <div class="col-xl-3 col-md-6 m-t-10 m-b-10">
+              <h6>Yearly Sales</h6>
+              <div class="row justify-content-center">
+                <div class="col-8">
+                  <chart id="sale-report-4" [type]="'bar'" [data]="saleReport4Data" [options]="saleReportOption"></chart>
+                </div>
+              </div>
+              <h5><i class="fa fa-caret-down text-c-red m-r-10"></i>{{yeartotal | currency}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- sales end -->
+
+    <!-- product start -->
+    <div class="col-xl-3 col-md-6">
+      <div class="card text-center bg-c-purple text-white">
+        <div class="card-block">
+          <h5 class="m-b-15 m-t-15">{{dtotal}}</h5>
+          <h6 class="m-b-0">Daily Sales</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card text-center bg-c-green text-white">
+        <div class="card-block">
+          <h5 class="m-b-15 m-t-15">{{weektotal}}</h5>
+          <h6 class="m-b-0">Weekly Sales</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card text-center bg-c-blue text-white">
+        <div class="card-block">
+          <h5 class="m-b-15 m-t-15">{{monthtotal}}</h5>
+          <h6 class="m-b-0">Monthly Sales</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+      <div class="card text-center bg-c-red text-white">
+        <div class="card-block">
+          <h5 class="m-b-15 m-t-15">{{yeartotal}}</h5>
+          <h6 class="m-b-0">Yearly Sales</h6>
+        </div>
+      </div>
+    </div>
+    <!-- product end -->
+
+  
+
+  
+    <div class="col-md-12">
+        <app-card [title]="'Top Sold Products'">
+        <div class="card-block">
+          <div id="top-sold-products" [style.height]="'200px'"></div>
+        </div>
+    </app-card>
+    </div>
+
+    
+    <!-- sec e-commerce & view prod-sale end -->
+
+    <div class="col-md-12" *ngIf="purchaseOrder">
+      <app-card [title]="'Latest Orders'" [cardClass]="'table-card latest-activity-card'">
+        <div class="table-responsive">
+          <table class="table table-hover table-borderless">
+            <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let orders of purchaseOrder.items">
+                <td>#{{orders.id}}</td>
+                <td>{{orders.total_amount | currency}}</td>
+                <td>{{orders.order_status}}</td>
+                <td>{{orders.created_date | date: 'MM/dd/yyyy, h:mm a' }}</td>
+                <td><a href="javascript:" (click)="pucahseView(orders.id)" ><i class="fa fa-eye f-16 m-r-15"></i></a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right  m-r-20">
+          <a href="javascript:" class="b-b-primary text-primary" (click)="pucahseList()">View all Orders</a>
+        </div>
+      </app-card>
+    </div>
+
+    <div class="col-md-12" *ngIf="salesOrder">
+      <app-card [title]="'Latest Orders'" [cardClass]="'table-card latest-activity-card'">
+        <div class="table-responsive">
+          <table class="table table-hover table-borderless">
+            <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let orders of salesOrder.items">
+                <td>#{{orders.id}}</td>
+                <td>{{orders.total_amount | currency}}</td>
+                <td>{{orders.order_status}}</td>
+                <td>{{orders.created_time | date: 'MM/dd/yyyy, h:mm a'}}</td>
+                <td><a href="javascript:" (click)="salesView(orders.id)" ><i class="fa fa-eye f-16 m-r-15"></i></a></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right  m-r-20">
+          <a href="javascript:" class="b-b-primary text-primary" (click)="salesList()">View all Orders</a>
+        </div>
+      </app-card>
+    </div>
+
+
+    <div class="col-xl-6 col-md-12" *ngIf="userInfo">
+      <app-card [title]="'Latest Customers'" [cardClass]="'table-card'">
+        <div class="table-responsive">
+          <table class="table table-hover table-borderless">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th class="text-right">Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let users of userInfo.users;let i = index">
+              <td>{{i+1}}</td>
+              <td>{{users.first_name}} {{users.last_name}}</td>
+              <td class="text-right">{{users.created_time | date: 'MM/dd/yyyy, h:mm a'}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-right  m-r-20">
+          <a href="javascript:" class="b-b-primary text-primary" (click)="customers()">View all Latest Customers</a>
+        </div>
+      </app-card>
+    </div>
+
+    <!-- <div class="col-xl-6 col-md-12">
+      <app-card [title]="'Customer Reviews'" [cardClass]="'table-card review-card'">
+        <div class="review-block">
+          <div class="row">
+            <div class="col-sm-auto p-r-0">
+              <img src="assets/images/avatar-2.jpg" alt="user image" class="img-radius profile-img cust-img m-b-15">
+            </div>
+            <div class="col">
+              <h6 class="m-b-15">John Deo <span class="f-right f-13 text-muted"> a week ago</span></h6>
+              <a href="javascript:"><i class="fa fa-star f-18 text-c-yellow"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-c-yellow"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-c-yellow"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-default"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-default"></i></a>
+              <p class="m-t-15 m-b-15 text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
+              <a href="javascript:" class="m-r-30"><i class="fa fa-thumbs-up m-r-15"></i>Helpful?</a>
+              <a href="javascript:"><i class="fa fa-heart text-c-red m-r-15"></i></a>
+              <a href="javascript:"><i class="fa fa-pencil-square-o"></i></a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-auto p-r-0">
+              <img src="assets/images/avatar-4.jpg" alt="user image" class="img-radius profile-img cust-img m-b-15">
+            </div>
+            <div class="col">
+              <h6 class="m-b-15">Allina D’croze <span class="f-right f-13 text-muted"> a week ago</span></h6>
+              <a href="javascript:"><i class="fa fa-star f-18 text-c-yellow"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-default"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-default"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-default"></i></a>
+              <a href="javascript:"><i class="fa fa-star f-18 text-default"></i></a>
+              <p class="m-t-15 m-b-15 text-muted">Lorem Ipsum is simply dummy.</p>
+              <blockquote class="blockquote m-t-15 m-b-0">
+                <h6>Allina D’croze</h6>
+                <p class="m-b-0 text-muted">Lorem Ipsum is simply dummy text of the industry.</p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div class="text-right  m-r-20">
+          <a href="javascript:" class="b-b-primary text-primary">View all Customer Reviews</a>
+        </div>
+      </app-card>
+    </div> -->
+
+  </div>
+</div>

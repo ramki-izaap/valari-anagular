@@ -1,0 +1,136 @@
+<!-- <div class="row" style="margin-bottom: 20px;">
+  <div class="col-md-12">
+    <a class="btn btn-info pull-right" href="https://s3.amazonaws.com/inventory-clara/product-import/product-import.csv" download>Download Sample CSV</a>
+  </div>
+</div> -->
+
+<div class="row" style="margin-bottom: 20px;">
+  <div class="col-sm-12">
+    <div ngbDropdown class="input-group input-group-dropdown btnsec">
+      <div class="input-group-prepend">
+        <button ngbDropdownToggle type="button" class="btn btn-info dropdown-toggle pull-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Download Sample CSV</button>
+        <div ngbDropdownMenu class="dropdown-menu">
+          <a class="dropdown-item" href="https://s3.amazonaws.com/inventory-clara/product-import/product-import.csv" download>Product Import</a>
+          <a class="dropdown-item" href="https://s3.amazonaws.com/inventory-clara/product-import/product-price-qty.csv" download>Product Price and Qty Change</a>
+          <!-- <a class="dropdown-item" href="https://s3.amazonaws.com/inventory-clara/product-import/image-import.csv" download>Product Images Upload</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Inputs Validation start -->
+    
+    <div class="card">
+      <div class="card-block">
+        
+        <div class="row" *ngIf="uploadDiv" style="text-align: center;"><!-- Upload Start Div-->
+          <div class="col-md-12">
+            <div class="row  pull-right">
+            <button type="button" class="btn btn-primary pull-right" (click)="uploadImages()">Process Images</button>
+        </div>
+            <h3>Upload your CSV Here</h3><br><br>
+            <div class="row">
+              <div class="col-md-6" style="margin: 0 auto;">
+                <div class="form-group">
+                    <div class="col-md-6 pull-left">
+                      <select class="form-control" (change)="onSelectChange($event)">
+                        <option value="">--Select--</option>
+                        <option value="1">Product Import</option>
+                        <option value="2">Product Price and Qty Change</option>
+                      </select>
+                      <div class="messages text-danger" *ngIf="import_error">Please select any one option</div>
+                    </div>
+                    <div class="col-md-6 pull-left">
+                      <input type="file" class="form-control" name="userfile" (change)="onFileChange($event)">
+                      <div class="messages text-danger" *ngIf="file_error">Please choose CSV file</div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-3" style="margin: 0 auto;">
+                <button type="button" class="btn btn-primary pull-left" (click)="uploadSubmit()">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="progressDiv" class="row" style="text-align: center;"><!-- Progress Div-->
+          <div class="col-md-12">
+            <h3>Please Wait...Your Product CSV is uploading and this may take few minutes.</h3>
+            <br><br>
+            <img src="https://s3.amazonaws.com/inventory-clara/images/loading-csv.gif" style="height: 160px;width: 200px;">
+          </div>
+        </div>
+
+        <div *ngIf="errorDiv2" class="col-md-12" style="margin-top: 30px;">
+            <!-- <h6>You may have following errors. If you continue means the following error products will not upload and rest of them will upload.</h6> -->
+            <h6>You may have following errors</h6>
+            <div class="clearfix"></div>
+            <div class="error-div">
+              <ul>
+                <li *ngFor="let e of errors">{{e}}</li>
+              </ul>
+            </div>
+            <br>
+            <!-- <button (click)="confirmUpload()" *ngIf="showConfirmButtom" class="btn pull-left btn-success">Confirm</button> -->
+          </div>
+
+        <div *ngIf="errorDiv" class="row"><!--Error Div-->
+          <div class="col-md-12">
+            <h4>You have following error while uploading a CSV file.</h4>
+            <br><br>
+            <div class="error-div">
+                <ul><li [innerHTML]="up_error"></li></ul>
+              </div>
+          </div>
+        </div>
+
+        <div *ngIf="successDiv" class="row" style="text-align: center;">
+          <div class="col-md-12">
+            <img src="https://s3.amazonaws.com/inventory-clara/images/success.gif" style="height: 200px;width: 270px;">
+            <h4>Success!</h4>
+            <p>Product has been imported successfully.</p>
+          </div>
+         
+        </div>
+
+        <div *ngIf="progressImagesDiv" class="row" style="text-align: center;"><!-- Progress Div-->
+          <div class="col-md-12">
+            <h3>Please Wait...Your Product Images are uploading and this may take few minutes.</h3>
+            <br><br>
+            <img src="https://s3.amazonaws.com/inventory-clara/images/loading-csv.gif" style="height: 160px;width: 200px;">
+          </div>
+        </div>
+
+        <div *ngIf="image_upload_success" class="row" style="text-align: center;">
+          <div class="col-md-12">
+            <img src="https://s3.amazonaws.com/inventory-clara/images/success.gif" style="height: 200px;width: 270px;">
+            <h4>Success!</h4>
+            <p>Product Images Uploaded Successfully.</p>
+          </div>
+          <div class=" col-md-12" *ngIf="invalid_sku!=''">
+             <p><b>Invalid SKU: </b> </p> {{invalid_sku}}
+          </div>
+          <div *ngIf="invalid_images!=''">
+             <p> <b>Invalid Images: </b> </p> {{invalid_images}}
+           </div>
+           
+        </div>
+
+        <div *ngIf="imageUploadErrors" class="row" style="text-align: center;">
+          
+          <div *ngIf="image_upload_erros!=''">
+             {{image_upload_erros}}
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

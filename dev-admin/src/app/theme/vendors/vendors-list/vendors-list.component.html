@@ -1,0 +1,30 @@
+<div class="row m-b-20">
+  <div class="col-sm-12">
+    <div  class="f-right">
+      <button class="btn btn-primary btn-sm ripple light" type="button" (click)="pushToCreatePVendor()">Create New Vendor</button>               
+    </div>
+  </div>
+</div>
+<app-card [title]="" class="card-bg">    
+  <app-iz-table [izTableData]="izTable" [columns]="columns" [rows]="rows" (listChange)="loadPage()" (doBulkAction)="doBulkAction()"></app-iz-table> 
+</app-card>
+
+
+<ng-template #roleTemplate let-value="value" ngx-datatable-cell-template>
+  <strong>{{value}}</strong>
+</ng-template>
+<ng-template #statusTemplate let-value="value" ngx-datatable-cell-template>
+  <label *ngIf="value=='Enable'" class="label label-success">Active</label>
+  <label *ngIf="value=='Disable'" class="label label-danger">Inactive</label>
+</ng-template>
+<ng-template #actionTemplate let-row="row" let-value="value" ngx-datatable-cell-template>
+  <!-- <button type="button" class="btn waves-effect waves-light btn-inverse btn-icon" (click)="edit(value)"><i class="fa fa-pencil"></i></button>
+  <button class="btn waves-effect waves-light btn-inverse btn-icon" (click)="deleteVendor(value)"><i class="fa fa-ban"></i></button> -->
+  
+  <i class="fa fa-eye custom-btn" (click)="view(value)"></i>
+  <i class="fa fa-pencil custom-btn" (click)="edit(value)"></i>
+  <i *ngIf="row.status=='Disable'" class="fa fa-check-circle custom-btn" style="color:#008000;" (click)="enableVendor(value)"></i>
+  <i *ngIf="row.status=='Enable'" class="fa fa-times-circle custom-btn" style="color:#FF0000;" (click)="disableVendor(value)"></i>
+  
+  
+</ng-template>

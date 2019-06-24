@@ -1,0 +1,19 @@
+<!-- <p>
+  refunds-list works!
+</p> -->
+<app-card [title]="" class="card-bg">    
+    <app-iz-table [izTableData]="izTable" [columns]="columns" [rows]="rows" (listChange)="loadPage()" (doBulkAction)="doBulkAction()"></app-iz-table> 
+</app-card>
+  
+  
+ <ng-template #roleTemplate let-value="value" ngx-datatable-cell-template>
+    <strong>{{value}}</strong>
+ </ng-template>
+  
+  <ng-template #priceTemplate let-value="value" ngx-datatable-cell-template>
+      <strong>{{value|currency}}</strong>
+  </ng-template>
+
+  <ng-template #dateTemplate let-value="value" ngx-datatable-cell-template>
+    <strong>{{value | date: 'MM/dd/yyyy, h:mm a'}}</strong>
+</ng-template>

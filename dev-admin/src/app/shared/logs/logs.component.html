@@ -1,0 +1,25 @@
+<button class="btn btn-danger" (click)="log()">{{logtitle}}</button>
+<br><br>
+<div class="panel panel-primary" *ngIf="showLog">
+    <div class="panel-heading">
+        <h4>Logs</h4>
+    </div>
+    <div class="panel-body add-notes">
+        <div class="row">
+            <div class="col-md-12" style="padding-right: 30px;">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <th width="300">Description</th>
+                        <th width="100">Created Time</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let l of logs">
+                            <td>{{l.description}}</td>
+                            <td>{{l.createdTime | date: 'MM/dd/yyyy, h:mm a' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

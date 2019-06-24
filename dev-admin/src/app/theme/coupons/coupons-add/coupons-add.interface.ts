@@ -1,0 +1,22 @@
+export interface CouponsCreation {
+    id: number,
+    discount_details: string,
+    title : string,
+	discount_used: string,
+    discount_used_one_user: string,
+    amount_percentage: string,
+    amount_type: string,
+    off_for: string,
+    product:string,
+    amount:string,
+    shipping_methods:string,
+    trigger_quantity:string,
+    apply_quantity:string,
+    apply_products_count:string,
+    coupon_documents:string,
+    countries:string,
+    state:string,
+    discount_begins:string,
+    discount_expires:string,
+    csv_file:string
+};
